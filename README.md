@@ -1,2 +1,2 @@
-# geiplamin-unmsm-max.github.io
+# web
 Repositorio GEIPLAMIN - UNMSM
