@@ -44,7 +44,7 @@ header h1, header p {
 /* 3. Navegación */
 nav {
     background: #000000;
-    padding: 10px 0;
+    padding: 15px 0;
     text-align: center;
     position: sticky;
     top: 0;
@@ -57,10 +57,14 @@ nav {
 
 nav a {
     color: #ffb066;
-    margin: 8px 12px; /* Reducimos el margen para que quepan mejor */
+    margin: 10px 20px; /* <--- Este margen da el aspecto que te gusta */
     text-decoration: none;
     font-weight: bold;
-    font-size: 14px; /* Tamaño de letra más estándar */
+    font-size: 16px; /* Letra un poco más grande y clara */
+    transition: color 0.3s ease;
+}
+nav a:hover {
+    color: #ffffff; /* Brilla al pasar el mouse */
 }
 
 /* 4. Secciones y Tarjetas */
@@ -237,18 +241,25 @@ button:hover {
 /* 8. DISEÑO PARA MÓVILES (Media Queries) */
 @media (max-width: 600px) {
     header {
-        /* Eliminamos el height fijo de 200px que tenías */
         height: auto; 
-        aspect-ratio: 16 / 9; /* Esto hace que el banner sea un poco más alto en cel para que el logo luzca */
-        background-size: contain;
-        background-position: center;
+        aspect-ratio: 16 / 9; /* El logo se adapta perfecto al ancho del cel */
+    }
+
+    nav {
+        padding: 10px 5px;
+    }
+
+    nav a {
+        margin: 5px 10px; /* En celular se reduce el espacio para que quepan */
+        font-size: 13px;   /* Letra un poco más pequeña solo en celular */
+        flex: 0 1 auto;   /* Permite que se acomoden solos */
     }
 
     .titulo-centrado {
-        font-size: 18px; /* Un poco más pequeño para que no se corte */
-        padding: 0 10px;
+        font-size: 20px;
         margin-top: 15px;
     }
+}
 
     nav {
         padding: 5px;
