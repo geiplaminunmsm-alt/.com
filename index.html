@@ -7,11 +7,8 @@
 
 <style>
 /* 1. Estilo general */
-html, body {
+body {
     margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-x: hidden; /* <--- Esto corta cualquier cosa que sobresalga a la derecha */
     font-family: Arial, sans-serif;
     background: #fdf6ec;
     color: #1a1a1a;
@@ -20,13 +17,12 @@ html, body {
 /* 2. Header (Imagen principal) */
 header {
     background-image: url('GEIPLAMIN.png'); 
-    background-size: contain; /* Mantiene la imagen completa */
+    background-size: contain;    
     background-position: center;
     background-repeat: no-repeat;
     background-color: #ff7a00;   
+    height: 350px;               
     width: 100%;
-    height: auto; /* Permite que la altura cambie */
-    aspect-ratio: 16 / 6; /* Esto es la clave: mantiene la proporción de tu banner */
 }
 
 header h1, header p {
@@ -44,27 +40,21 @@ header h1, header p {
 /* 3. Navegación */
 nav {
     background: #000000;
-    padding: 15px 0;
+    padding: 10px;
     text-align: center;
     position: sticky;
     top: 0;
     z-index: 100;
-    width: 100%;
     display: flex;
-    flex-wrap: wrap; /* <--- Si un botón no cabe, baja a la siguiente línea en lugar de empujar */
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 nav a {
     color: #ffb066;
-    margin: 10px 20px; /* <--- Este margen da el aspecto que te gusta */
+    margin: 15px;
     text-decoration: none;
     font-weight: bold;
-    font-size: 16px; /* Letra un poco más grande y clara */
-    transition: color 0.3s ease;
-}
-nav a:hover {
-    color: #ffffff; /* Brilla al pasar el mouse */
 }
 
 /* 4. Secciones y Tarjetas */
@@ -79,11 +69,10 @@ section {
     margin: 10px;
     border-radius: 12px;
     display: inline-block;
-    width: 100%;
+    width: 90%;
     max-width: 280px; 
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     vertical-align: top;
-    box-sizing: border-box;
 }
 
 button {
@@ -159,7 +148,6 @@ button:hover {
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    box-sizing: border-box;
 }
 
 .item-archivo {
@@ -241,54 +229,30 @@ button:hover {
 /* 8. DISEÑO PARA MÓVILES (Media Queries) */
 @media (max-width: 600px) {
     header {
-        height: auto; 
-        aspect-ratio: 16 / 9; /* El logo se adapta perfecto al ancho del cel */
+        height: 150px; 
     }
-
-    nav {
-        padding: 10px 5px;
-    }
-
-    nav a {
-        margin: 5px 10px; /* En celular se reduce el espacio para que quepan */
-        font-size: 13px;   /* Letra un poco más pequeña solo en celular */
-        flex: 0 1 auto;   /* Permite que se acomoden solos */
-    }
-
     .titulo-centrado {
         font-size: 20px;
         margin-top: 15px;
     }
-}
-
-    nav {
-        padding: 5px;
-        gap: 5px; /* Espaciado uniforme entre botones */
-    }
-
     nav a {
-        margin: 5px;
-        font-size: 12px; /* Letra ideal para pantallas pequeñas */
-        flex: 1 1 30%; /* Ayuda a que se acomoden en filas de 3 */
+        margin: 5px 10px;
+        font-size: 13px;
     }
-
     .footer-container {
         flex-direction: column;
         text-align: center;
         padding: 30px 10px;
     }
-
     .footer-section {
         margin-bottom: 30px;
         min-width: 100%;
     }
-
     .social-icons {
         justify-content: center;
     }
-
     .lista-repo {
-        width: 95%; /* Un poco más ancho para aprovechar el espacio del cel */
+        width: 90%;
         padding: 15px;
     }
 }
