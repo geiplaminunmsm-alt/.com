@@ -7,8 +7,11 @@
 
 <style>
 /* 1. Estilo general */
-body {
+html, body {
     margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* <--- Esto corta cualquier cosa que sobresalga a la derecha */
     font-family: Arial, sans-serif;
     background: #fdf6ec;
     color: #1a1a1a;
@@ -40,13 +43,14 @@ header h1, header p {
 /* 3. Navegación */
 nav {
     background: #000000;
-    padding: 10px;
+    padding: 10px 0;
     text-align: center;
     position: sticky;
     top: 0;
     z-index: 100;
+    width: 100%;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* <--- Si un botón no cabe, baja a la siguiente línea en lugar de empujar */
     justify-content: center;
 }
 
@@ -69,10 +73,11 @@ section {
     margin: 10px;
     border-radius: 12px;
     display: inline-block;
-    width: 90%;
+    width: 100%;
     max-width: 280px; 
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     vertical-align: top;
+    box-sizing: border-box;
 }
 
 button {
@@ -148,6 +153,7 @@ button:hover {
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-sizing: border-box;
 }
 
 .item-archivo {
@@ -229,16 +235,17 @@ button:hover {
 /* 8. DISEÑO PARA MÓVILES (Media Queries) */
 @media (max-width: 600px) {
     header {
-        height: 150px; 
+        height: 200px; 
+        background-size: contain;
+        background-position: center top;
     }
     .titulo-centrado {
-        font-size: 20px;
-        margin-top: 15px;
-    }
-    nav a {
-        margin: 5px 10px;
-        font-size: 13px;
-    }
+            font-size: 20px;
+        }
+        nav a {
+            margin: 5px 10px;
+            font-size: 13px;
+        }
     .footer-container {
         flex-direction: column;
         text-align: center;
