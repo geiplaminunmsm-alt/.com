@@ -7,22 +7,28 @@
 
 <style>
 /* 1. Estilo general */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #fdf6ec;
-    color: #1a1a1a;
+* {
+    box-sizing: border-box; /* 1. Evita que el padding empuje los bordes hacia afuera */
 }
 
+body {
+    margin: 0;
+    padding: 0; /* 2. Asegura que no haya espacio interno */
+    width: 100%;
+    overflow-x: hidden; /* 3. Bloquea el rastro blanco a la derecha */
+    font-family: Arial, sans-serif;
+    /* ... resto de código ... */
+}
 /* 2. Header (Imagen principal) */
 header {
     background-image: url('GEIPLAMIN.png'); 
     background-size: contain;    
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #ff7a00;   
+    background-color: #ff7a00; /* Rellena los costados con naranja */
     height: 350px;               
     width: 100%;
+    margin: 0;
 }
 
 header h1, header p {
@@ -163,6 +169,8 @@ button:hover {
     background-color: #000000;
     color: white;
     padding: 50px 20px;
+    width: 100%;    /* 1. Fuerza el ancho total */
+    margin: 0;      /* 2. Quita cualquier margen externo */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -220,12 +228,12 @@ button:hover {
 .footer-bottom {
     background: #111;
     padding: 15px;
+    width: 100%;   /* Estira al 100% */
+    margin: 0;     /* Sin margen */
     text-align: center;
     color: #666;
     font-size: 12px;
-    width: 100%;
 }
-
 /* --- 9. CARRUSEL Y AJUSTES NOSOTROS --- */
 .carousel-container {
     max-width: 800px; 
