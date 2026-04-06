@@ -6,19 +6,41 @@
 <title>GEIPLAMIN - Repositorio Minero</title>
 
 <style>
-/* 1. Estilo general */
+/* 1. Estilo general y Variables de Color (NUEVO) */
+:root {
+    /* Colores Modo Claro (Normal) */
+    --bg-principal: #ffffff;
+    --bg-tarjetas: #ffffff;
+    --texto-principal: #333333;
+    --acento-naranja: #ff7a00; /* Naranja estándar */
+    --sombra: rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] {
+    /* Colores Modo Minero (Oscuro) */
+    --bg-principal: #121212; /* Gris oscuro profundo */
+    --bg-tarjetas: #1e1e1e; /* Gris ligeramente más claro para tarjetas */
+    --texto-principal: #e0e0e0; /* Gris muy claro, no blanco puro */
+    --acento-naranja: #ff9d47; /* Naranja Neón brillante */
+    --sombra: rgba(255, 122, 0, 0.2); /* Sombra naranja suave */
+}
+
 * {
-    box-sizing: border-box; /* 1. Evita que el padding empuje los bordes hacia afuera */
+    box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    padding: 0; /* 2. Asegura que no haya espacio interno */
+    padding: 0;
     width: 100%;
-    overflow-x: hidden; /* 3. Bloquea el rastro blanco a la derecha */
+    overflow-x: hidden;
     font-family: Arial, sans-serif;
-    /* ... resto de código ... */
+    /* APLICAMOS LAS VARIABLES (NUEVO) */
+    background-color: var(--bg-principal);
+    color: var(--texto-principal);
+    transition: background-color 0.3s ease, color 0.3s ease; /* Suaviza el cambio */
 }
+
 /* 2. Header (Imagen principal) */
 header {
     background-image: url('GEIPLAMIN.png'); 
@@ -358,10 +380,73 @@ button:hover {
         box-sizing: border-box;
     }
 }
+
+/* 9 Botón Flotante para cambiar Modo (NUEVO) */
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 20px; /* Esquina inferior */
+    right: 20px;   /* Esquina derecha */
+    z-index: 1001; /* Por encima de todo */
+    background: var(--acento-naranja); /* Usa el naranja dinámico */
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 50%; /* Redondo */
+    cursor: pointer;
+    font-size: 24px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease;
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1); /* Agranda un poquito al pasar el mouse */
+}
+
+/* --- 10. MODAL DE PREVISUALIZACIÓN PDF --- */
+.modal-pdf {
+    display: none; 
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content-pdf {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+    height: 90%;
+    top: 5%;
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
 </style>
 </head>
 <body>
-
+<button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Cambiar Modo">
+    🔦
+</button>
+    
 <header></header> 
 <nav>
     <a href="javascript:void(0)" onclick="volverInicio()">Inicio</a>
@@ -538,29 +623,24 @@ button:hover {
     <h2>Material Bibliográfico</h2>
     
     <div style="text-align: center; margin-bottom: 20px;">
-    <input type="text" id="buscador" onkeyup="filtrarArchivos()" placeholder="🔍 Buscar material (ej. MinePlan, Drones...)" 
-    style="padding: 12px; width: 80%; max-width: 400px; border-radius: 25px; border: 2px solid #ff7a00; outline: none;">
-</div>
+        <input type="text" id="buscador" onkeyup="filtrarArchivos()" placeholder="🔍 Buscar material (ej. MinePlan, Drones...)" 
+        style="padding: 12px; width: 80%; max-width: 400px; border-radius: 25px; border: 2px solid #ff7a00; outline: none;">
+    </div>
     
     <div class="lista-repo">
-        <div class="item-archivo"><div><strong>📕 VENTILACIÓN MINERA</strong></div><a href="VENTILACIÓN MINERA.pdf" target="_blank"><button>Ver PDF</button></a></div>
-        
-        <div class="item-archivo"><div><strong>📓CARTERA DE PROYECTOS</strong></div><a href="CARTERA DE PROYECTOS .pdf" target="_blank"><button>Ver PDF</button></a></div>
-        
-        <div class="item-archivo"><div><strong>📗 USO DE DRONES EN TOPOGRAFÍA MINERA</strong></div><a href="USO DE DRONES EN TOPOGRAFÍA MINERA.pdf" target="_blank"><button>Ver PDF</button></a></div>
-        <div class="item-archivo"><div><strong>📘 SUBLEVEL STOPING VETAS ANGOSTAS</strong></div><a href="SUBLEVEL STOPING VETAS ANGOSTAS.pdf" target="_blank"><button>Ver PDF</button></a></div>
-        <div class="item-archivo"><div><strong>📓 REMEDIACIÓN AMBIENTAL</strong></div><a href="REMEDIACIÓN AMBIENTAL.pdf" target="_blank"><button>Ver PDF</button></a></div>
-        
-        <div class="item-archivo"><div><strong>📔 AGUAS ÁCIDAS EN MINERÍA</strong></div><a href="AGUAS ÁCIDAS EN MINERÍA.pdf" target="_blank"><button>Ver PDF</button></a></div>
-        
-        <div class="item-archivo"><div><strong>📕 AREQUIPA TRADICIÓN MINERA</strong></div><a href="AREQUIPA TRADICIÓN MINERA.pdf" target="_blank"><button>Ver PDF</button></a></div>
-
-        <div class="item-archivo"><div><strong>📕 Manual Práctico MinePlan N° 1</strong></div><a href="Manual Práctico MinePlan N° 1 - Mallas de perforación.pdf" target="_blank"><button>Ver PDF</button></a></div>
-        <div class="item-archivo"><div><strong>📙 Algoritmo de Lerch & Grossman</strong></div><a href="ALGORITMO DE LERCH & GROSSMAN.pdf" target="_blank"><button>Ver PDF</button></a></div>
-        <div class="item-archivo"><div><strong>📗 Uso de SIMSCHED y QPIT</strong></div><a href="USO DE SIMSCHED Y QPIT PARA LA OPTIMIZACIÓN Y DISEÑO EN OPENPIT.pdf" target="_blank"><button>Ver PDF</button></a></div>
-        <div class="item-archivo"><div><strong>📘 Categorización de Recursos Minerales</strong></div><a href="CATEGORIZACIÓN DE RECURSOS MINERALES.pdf" target="_blank"><button>Ver PDF</button></a></div>
-        <div class="item-archivo"><div><strong>📓 Mantenimiento Tipo Overhaul</strong></div><a href="IMPLEMENTACIÓN DE MANTENIMIENTO TIPO OVERHAUL PARA AUMENTAR LA DISPONIBILIDAD EN EQUIPOS MINEROS.pdf" target="_blank"><button>Ver PDF</button></a></div>
-        <div class="item-archivo"><div><strong>📔 Componentes Geométricos Open Pit</strong></div><a href="COMPONENTES GEOMÉTRICOS EN EL DISEÑO DE MINAS OPEN PIT.pdf" target="_blank"><button>Ver PDF</button></a></div>
+        <div class="item-archivo"><div><strong>📕 VENTILACIÓN MINERA</strong></div><button onclick="verPDF('VENTILACIÓN MINERA.pdf')">Ver PDF</button></div>
+        <div class="item-archivo"><div><strong>📓 CARTERA DE PROYECTOS</strong></div><button onclick="verPDF('CARTERA DE PROYECTOS .pdf')">Ver PDF</button></div>
+        <div class="item-archivo"><div><strong>📗 USO DE DRONES EN TOPOGRAFÍA MINERA</strong></div><button onclick="verPDF('USO DE DRONES EN TOPOGRAFÍA MINERA.pdf')">Ver PDF</button></div>
+        <div class="item-archivo"><div><strong>📘 SUBLEVEL STOPING VETAS ANGOSTAS</strong></div><button onclick="verPDF('SUBLEVEL STOPING VETAS ANGOSTAS.pdf')">Ver PDF</button></div>
+        <div class="item-archivo"><div><strong>📓 REMEDIACIÓN AMBIENTAL</strong></div><button onclick="verPDF('REMEDIACIÓN AMBIENTAL.pdf')">Ver PDF</button></div>
+        <div class="item-archivo"><div><strong>📔 AGUAS ÁCIDAS EN MINERÍA</strong></div><button onclick="verPDF('AGUAS ÁCIDAS EN MINERÍA.pdf')">Ver PDF</button></div>
+        <div class="item-archivo"><div><strong>📕 AREQUIPA TRADICIÓN MINERA</strong></div><button onclick="verPDF('AREQUIPA TRADICIÓN MINERA.pdf')">Ver PDF</button></div>
+        <div class="item-archivo"><div><strong>📕 Manual Práctico MinePlan N° 1</strong></div><button onclick="verPDF('Manual Práctico MinePlan N° 1 - Mallas de perforación.pdf')">Ver PDF</button></div>
+        <div class="item-archivo"><div><strong>📙 Algoritmo de Lerch & Grossman</strong></div><button onclick="verPDF('ALGORITMO DE LERCH & GROSSMAN.pdf')">Ver PDF</button></div>
+        <div class="item-archivo"><div><strong>📗 Uso de SIMSCHED y QPIT</strong></div><button onclick="verPDF('USO DE SIMSCHED Y QPIT PARA LA OPTIMIZACIÓN Y DISEÑO EN OPENPIT.pdf')">Ver PDF</button></div>
+        <div class="item-archivo"><div><strong>📘 Categorización de Recursos Minerales</strong></div><button onclick="verPDF('CATEGORIZACIÓN DE RECURSOS MINERALES.pdf')">Ver PDF</button></div>
+        <div class="item-archivo"><div><strong>📓 Mantenimiento Tipo Overhaul</strong></div><button onclick="verPDF('IMPLEMENTACIÓN DE MANTENIMIENTO TIPO OVERHAUL PARA AUMENTAR LA DISPONIBILIDAD EN EQUIPOS MINEROS.pdf')">Ver PDF</button></div>
+        <div class="item-archivo"><div><strong>📔 Componentes Geométricos Open Pit</strong></div><button onclick="verPDF('COMPONENTES GEOMÉTRICOS EN EL DISEÑO DE MINAS OPEN PIT.pdf')">Ver PDF</button></div>
     </div>
 </section>
 
@@ -583,16 +663,24 @@ button:hover {
             <p>📧 geiplamin.unmsm.24@gmail.com</p>
             <p>📍 Facultad de Ingeniería de Minas - UNMSM</p>
             <div class="social-icons">
-                <a href="https://www.facebook.com/GrupodeestudioeInvestigaciondePlaneamientoMinero" target="_blank"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z" /></svg></a>
-                <a href="https://www.linkedin.com/company/geiplamin-unmsm/" target="_blank"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5V13.2a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3V10.2H10.2v8.3h2.72v-4.4c0-1.04.88-1.9 1.9-1.9s1.9.86 1.9 1.9v4.4h2.72M6.25 10.2v8.3h2.73v-8.3H6.25M7.62 6a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 7.62 6Z" /></svg></a>
-                <a href="https://www.instagram.com/geiplamin/" target="_blank"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3Z" /></svg></a>
+                <a href="https://www.facebook.com/GrupodeestudioeInvestigaciondePlaneamientoMinero" target="_blank"><svg viewBox="0 0 24 24" width="40" height="40"><path fill="currentColor" d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z" /></svg></a>
+                <a href="https://www.linkedin.com/company/geiplamin-unmsm/" target="_blank"><svg viewBox="0 0 24 24" width="40" height="40"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5V13.2a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3V10.2H10.2v8.3h2.72v-4.4c0-1.04.88-1.9 1.9-1.9s1.9.86 1.9 1.9v4.4h2.72M6.25 10.2v8.3h2.73v-8.3H6.25M7.62 6a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 7.62 6Z" /></svg></a>
+                <a href="https://www.instagram.com/geiplamin/" target="_blank"><svg viewBox="0 0 24 24" width="40" height="40"><path fill="currentColor" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3Z" /></svg></a>
             </div>
         </div>
     </div>
     <div class="footer-bottom">© 2026 GEIPLAMIN - Todos los derechos reservados.</div>
+
+    <div id="pdfModal" class="modal-pdf">
+        <div class="modal-content-pdf">
+            <span class="close-modal" onclick="cerrarPDF()">&times; Cerrar Ventana</span>
+            <iframe id="pdfFrame" src=""></iframe>
+        </div>
+    </div>
 </footer>
 
 <script>
+// --- 1. NAVEGACIÓN ---
 function ocultarTodo() {
     const secciones = ['inicio', 'software', 'eventos', 'recursos', 'quienes-somos', 'grupos-inv', 'convocatoria'];
     secciones.forEach(id => {
@@ -600,64 +688,82 @@ function ocultarTodo() {
         if(el) el.style.display = 'none';
     });
 }
+
 function mostrarSeccion(idSeccion) {
     ocultarTodo();
     const seccion = document.getElementById(idSeccion);
-    if(seccion) seccion.style.display = 'block';
-    window.scrollTo(0, 0);
-}
-function mostrarMaterial() { mostrarSeccion('recursos'); }
-function volverInicio() {
-    ocultarTodo(); 
-    document.getElementById('inicio').style.display = 'block'; 
-    window.scrollTo(0, 0);
-}
-
-
-let currentIndex = 0;
-const totalImagenesReales = 3; // Las que no son copias
-
-function moverCarrusel() {
-    const track = document.getElementById('track');
-    const seccionNosotros = document.getElementById('quienes-somos');
-    
-    if (track && seccionNosotros.style.display !== 'none') {
-        currentIndex++;
-        
-        // Movimiento fluido hacia adelante (25% porque ahora hay 4 divisiones)
-        track.style.transition = "transform 1s ease-in-out";
-        track.style.transform = `translateX(-${currentIndex * 25}%)`;
-
-        // Si llegamos a la imagen 4 (la copia de la primera)
-        if (currentIndex === totalImagenesReales) {
-            setTimeout(() => {
-                // Quitamos la animación un segundo para volver al inicio sin que se vea el viaje
-                track.style.transition = "none"; 
-                currentIndex = 0;
-                track.style.transform = `translateX(0)`;
-            }, 1000); // 1000ms es lo que tarda en moverse
-        }
+    if(seccion) {
+        seccion.style.display = 'block';
+        window.scrollTo(0, 0); // Regresa al inicio de la página al cambiar de pestaña
     }
-}    
+}
 
-// Ejecuta la función cada 4 segundos
-setInterval(moverCarrusel, 4000);
-    
+function volverInicio() {
+    mostrarSeccion('inicio');
+}
+
+function mostrarMaterial() {
+    mostrarSeccion('recursos');
+}
+
+// --- 2. BUSCADOR DE ARCHIVOS ---
 function filtrarArchivos() {
-    let input = document.getElementById('buscador').value.toLowerCase();
-    let items = document.getElementsByClassName('item-archivo');
+    const input = document.getElementById('buscador');
+    const filtro = input.value.toUpperCase();
+    const items = document.getElementsByClassName('item-archivo');
 
     for (let i = 0; i < items.length; i++) {
-        // Buscamos en todo el texto de la fila del archivo
-        let texto = items[i].textContent || items[i].innerText;
-        if (texto.toLowerCase().includes(input)) {
-            items[i].style.display = "flex";
+        const texto = items[i].innerText || items[i].textContent;
+        if (texto.toUpperCase().indexOf(filtro) > -1) {
+            items[i].style.display = "";
         } else {
             items[i].style.display = "none";
         }
     }
 }
+
+// --- 3. MODO OSCURO (MODO MINERO) ---
+function toggleDarkMode() {
+    const body = document.body;
+    const currentTheme = body.getAttribute('data-theme');
+    const btn = document.querySelector('.dark-mode-toggle');
     
+    if (currentTheme === 'dark') {
+        body.removeAttribute('data-theme');
+        btn.innerHTML = "🔦";
+    } else {
+        body.setAttribute('data-theme', 'dark');
+        btn.innerHTML = "☀️";
+    }
+}
+
+// --- 4. MODAL PDF ---
+function verPDF(url) {
+    const modal = document.getElementById('pdfModal');
+    const iframe = document.getElementById('pdfFrame');
+    iframe.src = url;
+    modal.style.display = 'block';
+}
+
+function cerrarPDF() {
+    const modal = document.getElementById('pdfModal');
+    const iframe = document.getElementById('pdfFrame');
+    modal.style.display = 'none';
+    iframe.src = ''; // Limpia el recurso al cerrar
+}
+
+// --- 5. CARRUSEL AUTOMÁTICO ---
+let slideIndex = 0;
+function moverCarrusel() {
+    const track = document.getElementById('track');
+    if(track) {
+        slideIndex++;
+        if (slideIndex >= 4) slideIndex = 0; 
+        track.style.transform = `translateX(-${slideIndex * 25}%)`;
+    }
+}
+// Cambia la imagen cada 3.5 segundos
+setInterval(moverCarrusel, 3500);
 </script>
 </body>
 </html>
