@@ -79,7 +79,14 @@ section {
     max-width: 280px; 
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     vertical-align: top;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* ESTO AGREGA EL MOVIMIENTO */
 }
+
+  .card:hover {
+    transform: translateY(-10px); /* La tarjeta sube un poquito */
+    box-shadow: 0 12px 20px rgba(255, 122, 0, 0.3); /* Sombra naranja suave */
+    border: 1px solid #ff7a00;
+  }
 
 button {
     background: #ff7a00;
@@ -529,6 +536,12 @@ button:hover {
     
 <section id="recursos">
     <h2>Material Bibliográfico</h2>
+    
+    <div style="text-align: center; margin-bottom: 20px;">
+    <input type="text" id="buscador" onkeyup="filtrarArchivos()" placeholder="🔍 Buscar material (ej. MinePlan, Drones...)" 
+    style="padding: 12px; width: 80%; max-width: 400px; border-radius: 25px; border: 2px solid #ff7a00; outline: none;">
+</div>
+    
     <div class="lista-repo">
         <div class="item-archivo"><div><strong>📕 VENTILACIÓN MINERA</strong></div><a href="VENTILACIÓN MINERA.pdf" target="_blank"><button>Ver PDF</button></a></div>
         
@@ -629,7 +642,22 @@ function moverCarrusel() {
 
 // Ejecuta la función cada 4 segundos
 setInterval(moverCarrusel, 4000);
- 
+    
+function filtrarArchivos() {
+    let input = document.getElementById('buscador').value.toLowerCase();
+    let items = document.getElementsByClassName('item-archivo');
+
+    for (let i = 0; i < items.length; i++) {
+        // Buscamos en todo el texto de la fila del archivo
+        let texto = items[i].textContent || items[i].innerText;
+        if (texto.toLowerCase().includes(input)) {
+            items[i].style.display = "flex";
+        } else {
+            items[i].style.display = "none";
+        }
+    }
+}
+    
 </script>
 </body>
 </html>
