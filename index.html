@@ -778,10 +778,7 @@ function cerrarPDF() {
 }
     // --- 4.1 MODAL DRIVE ---
 function abrirDrive() {
-    const modal = document.getElementById('driveModal');
-    const iframe = document.getElementById('driveFrame');
-    iframe.src = "https://drive.google.com/drive/folders/1CYGBnZrehxe5AeovOPb6-GS9XCehoefC?usp=drive_link";
-    modal.style.display = 'block';
+    window.open("https://drive.google.com/drive/folders/1CYGBnZrehxe5AeovOPb6-GS9XCehoefC", "_blank");
 }
 
 function cerrarDrive() {
