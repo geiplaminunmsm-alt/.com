@@ -329,7 +329,6 @@ button:hover {
 
 /* 8. DISEÑO PARA MÓVILES (Corrección de Scroll Lateral únicamente) */
 @media (max-width: 600px) {
-    /* Evita que el cuerpo entero se mueva a los lados */
     html, body {
         overflow-x: hidden;
         width: 100%;
@@ -499,11 +498,10 @@ iframe {
 
     <div class="lista-repo" style="text-align: justify; line-height: 1.8; margin-top: 10px; background: none; box-shadow: none; max-width: 800px; margin-left: auto; margin-right: auto;">
         <p style="font-size: 18px; color: var(--texto-principal); margin-bottom: 25px; text-align: center;">
-            <strong>GEIPLAMIN</strong> es un colectivo estudiantil de la Escuela Profesional de Ingeniería de Minas de la <strong>UNMSM</strong>, dedicado a explorar, desarrollar y compartir conocimientos especializados en planeamiento minero.
+            GEIPLAMIN es un colectivo estudiantil de la Escuela Profesional de Ingeniería de Minas de la UNMSM, dedicado a explorar, desarrollar y compartir conocimientos especializados en planeamiento minero.
         </p>
     </div>
-
-    <div class="carousel-container">
+<div class="carousel-container">
         <div class="carousel-track" id="track">
             <div class="carousel-slide"><img src="NOSOTROS.png" alt="Equipo 1"></div>
             <div class="carousel-slide"><img src="NOSOTROS1.png" alt="Equipo 2"></div>
@@ -527,6 +525,41 @@ iframe {
 
         </div>
     </div>
+</section>
+
+<script>
+    (function() {
+        let index = 0;
+        const track = document.getElementById('track');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length; 
+
+        function moverCarrusel() {
+            index++;
+
+            // Aplicar transición para el movimiento hacia adelante
+            track.style.transition = "transform 1s ease-in-out";
+            track.style.transform = `translateX(-${index * 25}%)`;
+
+            // Verificar si llegamos al clon (última posición)
+            track.addEventListener('transitionend', function reset() {
+                if (index >= totalSlides - 1) {
+                    // Salto invisible al inicio real
+                    track.style.transition = "none";
+                    index = 0;
+                    track.style.transform = `translateX(0%)`;
+                }
+                // Remover el evento para que no se acumule
+                track.removeEventListener('transitionend', reset);
+            });
+        }
+
+        // Ejecutar cada 3 segundos
+        setInterval(moverCarrusel, 3000);
+    })();
+</script>
+    
+</script>    
 </section>
 
 <section id="grupos-inv" style="display:none;">
@@ -679,8 +712,7 @@ iframe {
             </div>
         </div>
     </div>
-    <div class="footer-bottom">© 2026 GEIPLAMIN - Todos los derechos reservados.</div>
-
+   <div class="footer-bottom">© 2026 GEIPLAMIN - Todos los derechos reservados.</div>
 </footer>
 
 <script>
@@ -698,17 +730,12 @@ function mostrarSeccion(idSeccion) {
     const seccion = document.getElementById(idSeccion);
     if(seccion) {
         seccion.style.display = 'block';
-        window.scrollTo(0, 0); // Regresa al inicio de la página al cambiar de pestaña
+        window.scrollTo(0, 0); 
     }
 }
 
-function volverInicio() {
-    mostrarSeccion('inicio');
-}
-
-function mostrarMaterial() {
-    mostrarSeccion('recursos');
-}
+function volverInicio() { mostrarSeccion('inicio'); }
+function mostrarMaterial() { mostrarSeccion('recursos'); }
 
 // --- 2. BUSCADOR DE ARCHIVOS ---
 function filtrarArchivos() {
@@ -718,18 +745,13 @@ function filtrarArchivos() {
 
     for (let i = 0; i < items.length; i++) {
         const texto = items[i].innerText || items[i].textContent;
-        if (texto.toUpperCase().indexOf(filtro) > -1) {
-            items[i].style.display = "";
-        } else {
-            items[i].style.display = "none";
-        }
+        items[i].style.display = (texto.toUpperCase().indexOf(filtro) > -1) ? "" : "none";
     }
 }
 
 // --- 3. MODO OSCURO (MODO MINERO) ---
 function toggleDarkMode() {
     const body = document.body;
-    // Si el tema actual es oscuro, pásalo a claro, si no, a oscuro
     if (body.getAttribute('data-theme') === 'dark') {
         body.removeAttribute('data-theme');
         localStorage.setItem('theme', 'light');
@@ -739,27 +761,36 @@ function toggleDarkMode() {
     }
 }
 
-// Esto hace que si el usuario refresca la página, se mantenga su preferencia
+// --- 4. CARRUSEL INFINITO ---
+let slideIndex = 0;
+function moverCarrusel() {
+    const track = document.getElementById('track');
+    if(!track) return;
+
+    slideIndex++;
+    track.style.transition = "transform 1s ease-in-out";
+    track.style.transform = `translateX(-${slideIndex * 25}%)`;
+
+    track.addEventListener('transitionend', function reset() {
+        if (slideIndex >= 3) { // Salto invisible al llegar al clon
+            track.style.transition = "none";
+            slideIndex = 0;
+            track.style.transform = `translateX(0%)`;
+        }
+        track.removeEventListener('transitionend', reset);
+    });
+}
+
+// --- 5. INICIALIZACIÓN ---
 window.onload = () => {
+    // Cargar tema guardado
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
         document.body.setAttribute('data-theme', 'dark');
     }
+    // Iniciar carrusel
+    setInterval(moverCarrusel, 3500);
 };
-
-
-// --- 5. CARRUSEL AUTOMÁTICO ---
-let slideIndex = 0;
-function moverCarrusel() {
-    const track = document.getElementById('track');
-    if(track) {
-        slideIndex++;
-        if (slideIndex >= 4) slideIndex = 0; 
-        track.style.transform = `translateX(-${slideIndex * 25}%)`;
-    }
-}
-// Cambia la imagen cada 3.5 segundos
-setInterval(moverCarrusel, 3500);
 </script>
 </body>
 </html>
