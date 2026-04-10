@@ -242,9 +242,16 @@ button:hover {
 }
 
 .footer-section {
-    flex: 1;
-    min-width: 250px;
+  flex: 0 1 250px; /* Cambiado de flex: 1 a flex: 0 1 250px */
     margin-bottom: 20px;
+    padding: 0 15px;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start; /* Asegura que empiecen desde la izquierda de su columna */
 }
 
 .footer-section h3 {
@@ -759,12 +766,14 @@ const track = document.getElementById('track');
 
 function ejecutarCarrusel() {
     if (!track) return;
+    
     currentSlide++;
     track.style.transition = "transform 1s ease-in-out";
     track.style.transform = `translateX(-${currentSlide * 25}%)`;
 
     track.addEventListener('transitionend', function alTerminar() {
-        if (currentSlide === 3) { 
+        // RESET: Si ya estamos en la última imagen (el clon de la primera)
+        if (currentSlide >= 3) { 
             track.style.transition = "none";
             currentSlide = 0;
             track.style.transform = `translateX(0%)`;
