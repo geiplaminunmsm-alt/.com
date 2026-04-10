@@ -163,11 +163,38 @@ button:hover {
 }
 
 .day {
-    min-height: 80px;
-    border: 1px solid rgba(128, 128, 128, 0.2);
-    padding: 5px;
+    min-height: 90px;
+    border: 1px solid rgba(128, 128, 128, 0.15);
+    padding: 8px;
     background: var(--bg-tarjetas);
-    color: var(--texto-principal); /* Cambia automático: negro en light, blanco en dark */
+    border-radius: 10px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Hover PRO */
+.day:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 18px rgba(255,122,0,0.25);
+}
+
+/* 🔥 DÍAS CON EVENTO */
+.day.evento {
+    background: linear-gradient(135deg, #ff7a00, #ffb347);
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 0 12px rgba(255,122,0,0.6);
+}
+
+/* TEXTO DEL EVENTO */
+.evento-texto {
+    display: block;
+    font-size: 11px;
+    margin-top: 5px;
+    padding: 4px;
+    border-radius: 6px;
+    background: rgba(0,0,0,0.2);
 }
 
 .hoy {
@@ -870,6 +897,8 @@ function generarCalendario() {
 
         let fecha = `${añoActual}-${mesActual+1}-${dia}`;
         let evento = eventos[fecha] || "";
+        let tieneEvento = evento !== "";
+        let claseEvento = tieneEvento ? "evento" : "";
 
         let fechaObj = new Date(añoActual, mesActual, dia);
         let diaSemana = fechaObj.getDay();
@@ -887,9 +916,9 @@ function generarCalendario() {
         let claseHoy = esHoy ? "hoy" : "";
 
         grid.innerHTML += `
-            <div class="day ${claseExtra} ${claseHoy}">
+            <div class="day ${claseExtra} ${claseHoy} ${claseEvento}">
                 <strong>${dia}</strong>
-                <div style="font-size:10px;">${evento}</div>
+                ${tieneEvento ? `<span class="evento-texto">${evento}</span>` : ""}
             </div>
         `;
     }
