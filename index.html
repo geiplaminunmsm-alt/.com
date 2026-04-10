@@ -862,12 +862,17 @@ function generarCalendario() {
         let fecha = `${añoActual}-${mesActual+1}-${dia}`;
         let evento = eventos[fecha] || "";
 
-        grid.innerHTML += `
-            <div class="day">
-                <strong>${dia}</strong>
-                <div style="font-size:10px;">${evento}</div>
-            </div>
-        `;
+        let fechaObj = new Date(añoActual, mesActual, dia);
+let diaSemana = fechaObj.getDay(); // 0 = domingo, 6 = sábado
+
+let claseExtra = (diaSemana === 0 || diaSemana === 6) ? "weekend" : "";
+
+grid.innerHTML += `
+    <div class="day ${claseExtra}">
+        <strong>${dia}</strong>
+        <div style="font-size:10px;">${evento}</div>
+    </div>
+`;
     }
 }
 
@@ -886,6 +891,7 @@ function cambiarMes(direccion) {
 
     generarCalendario();
 }
+
 
 </script>
 </body>
