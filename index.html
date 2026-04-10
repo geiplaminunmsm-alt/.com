@@ -453,8 +453,8 @@ iframe {
 </style>
 </head>
 <body>
-<button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Cambiar Modo">
-    🔦
+<button id="theme-btn" class="dark-mode-toggle" onclick="toggleDarkMode()" title="Cambiar Modo">
+    ☀️
 </button>
     
 <header></header> 
@@ -526,39 +526,7 @@ iframe {
     </div>
 </section>
 
-<script>
-    (function() {
-        let index = 0;
-        const track = document.getElementById('track');
-        const slides = document.querySelectorAll('.carousel-slide');
-        const totalSlides = slides.length; 
 
-        function moverCarrusel() {
-            index++;
-
-            // Aplicar transición para el movimiento hacia adelante
-            track.style.transition = "transform 1s ease-in-out";
-            track.style.transform = `translateX(-${index * 25}%)`;
-
-            // Verificar si llegamos al clon (última posición)
-            track.addEventListener('transitionend', function reset() {
-                if (index >= totalSlides - 1) {
-                    // Salto invisible al inicio real
-                    track.style.transition = "none";
-                    index = 0;
-                    track.style.transform = `translateX(0%)`;
-                }
-                // Remover el evento para que no se acumule
-                track.removeEventListener('transitionend', reset);
-            });
-        }
-
-        // Ejecutar cada 3 segundos
-        setInterval(moverCarrusel, 3000);
-    })();
-</script>
-    
-</script>    
 </section>
 
 <section id="grupos-inv" style="display:none;">
@@ -751,12 +719,16 @@ function filtrarArchivos() {
 // --- 3. MODO OSCURO (MODO MINERO) ---
 function toggleDarkMode() {
     const body = document.body;
+    const btn = document.getElementById('theme-btn');
+    
     if (body.getAttribute('data-theme') === 'dark') {
         body.removeAttribute('data-theme');
         localStorage.setItem('theme', 'light');
+        btn.innerHTML = "☀️"; // Pone el sol
     } else {
         body.setAttribute('data-theme', 'dark');
         localStorage.setItem('theme', 'dark');
+        btn.innerHTML = "🌙"; // Pone la luna
     }
 }
 
@@ -787,13 +759,17 @@ function ejecutarCarrusel() {
 
 // --- 5. INICIALIZACIÓN ---
 window.onload = () => {
-    // Cargar tema guardado
     const savedTheme = localStorage.getItem('theme');
+    const btn = document.getElementById('theme-btn');
+    
     if (savedTheme === 'dark') {
         document.body.setAttribute('data-theme', 'dark');
+        if(btn) btn.innerHTML = "🌙"; // Si estaba en oscuro, pone la luna
     }
     
-    // Iniciar carrusel una sola vez aquí
+    // Iniciar el carrusel una sola vez
     setInterval(ejecutarCarrusel, 3500);
 };
 </script>
+</body>
+</html>
