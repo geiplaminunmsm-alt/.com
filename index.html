@@ -459,7 +459,7 @@ button:hover {
     text-transform: uppercase;
 }
 
-/* 8. DISEÑO PARA MÓVILES (Corrección de Scroll Lateral únicamente) */
+/* --- 8. DISEÑO PARA MÓVILES (Ajustes de pantalla) --- */
 @media (max-width: 600px) {
     html, body {
         overflow-x: hidden;
@@ -470,44 +470,38 @@ button:hover {
     header {
         height: 150px; 
     }
+} /* <--- ESTA LLAVE FALTABA AQUÍ PARA CERRAR EL MODO MÓVIL */
 
-  /* --- Título Principal con ajuste automático --- */
+/* --- TÍTULO PRINCIPAL (Fuera del media query para que se vea en PC) --- */
 .titulo-centrado {
-    text-align: center;
+    text-align: center !important;
     padding: 40px 20px;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    display: block;
 }
 
 .titulo-centrado h1 {
-    color: #ff7a00;
-    /* clamp hace que el texto sea grande en PC y pequeño en móvil automáticamente */
-    font-size: clamp(1.5rem, 5vw, 2.5rem); 
+    color: #ff7a00 !important; /* Fuerza el naranja de GEIPLAMIN */
+    font-size: clamp(1.5rem, 5vw, 2.8rem); 
     margin: 0;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-/* --- Control del Buscador de Google (WikiMin) --- */
+/* --- 9. CONTROL DEL BUSCADOR (WikiMin) --- */
 #software .gcse-search {
     width: 100% !important;
     max-width: 700px;
     margin: 0 auto;
 }
 
-/* Fuerza al buscador a no salirse de la pantalla */
 .gsc-control-cse {
     padding: 0 !important;
     width: 100% !important;
     box-sizing: border-box !important;
-}
-
-/* --- Ajuste General para evitar el corte lateral --- */
-html, body {
-    max-width: 100vw;
-    overflow-x: hidden;
 }
     
 /* 9 Botón Flotante para cambiar Modo (NUEVO) */
