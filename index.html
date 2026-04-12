@@ -41,22 +41,45 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease; /* Suaviza el cambio */
 }
 
-/* 2. Header (Corregido para que NO se corte) */
+/* 2. Header (Corregido: Sin recortes, proporciones reales y sin franjas) */
 header {
     background-image: url('GEIPLAMIN.png'); 
-    /* 'contain' hace que la imagen siempre se vea completa sin cortarse */
-    background-size: contain;    
+    background-size: contain;    /* Asegura que la imagen se vea completa siempre */
     background-position: center top;
     background-repeat: no-repeat;
     
-    /* Calculamos la altura basada en el ancho para mantener la proporción */
-    /* Si tu imagen es muy ancha, 25vw-30vw es ideal */
-    height: 28vw;                
     width: 100%;
-    margin: 0;
+    /* IMPORTANTE: aspect-ratio: ANCHO / ALTO. 
+       Si tu imagen es de 1920x538, usa 1920/538.
+       Si no sabes la medida, 3.5 / 1 suele ser el estándar de tu banner.
+    */
+    aspect-ratio: 3.5 / 1; 
+    height: auto; 
     
-    /* El fondo naranja detrás de la imagen para que no queden huecos blancos */
-    background-color: #ff7a00; 
+    margin: 0;
+    padding: 0;
+    
+    /* Cambiamos a transparente o negro para que la franja naranja desaparezca */
+    background-color: transparent; 
+}
+
+/* 3. Navegación (Ajuste para que suba y se pegue al header) */
+nav {
+    margin-top: 0; /* Elimina cualquier espacio entre el banner y el menú */
+    background: #000000;
+    /* ... resto de tu código de nav ... */
+}
+
+/* --- 8. DISEÑO PARA MÓVILES (Simplificado) --- */
+@media (max-width: 600px) {
+    header {
+        /* Ya no necesita height: 28vw; el aspect-ratio lo hace automático */
+        background-position: center center;
+    }
+    
+    .titulo-centrado {
+        padding-top: 10px; /* Ajusta el espacio del texto que subió */
+    }
 }
     
 /* 3. Navegación */
