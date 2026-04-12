@@ -41,28 +41,22 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease; /* Suaviza el cambio */
 }
 
-/* 2. Header (Imagen principal corregida) */
+/* 2. Header (Corregido para que NO se corte) */
 header {
     background-image: url('GEIPLAMIN.png'); 
-    /* 'cover' estira la imagen para que nunca queden huecos negros a los lados */
-    background-size: cover;    
-    background-position: center;
+    /* 'contain' hace que la imagen siempre se vea completa sin cortarse */
+    background-size: contain;    
+    background-position: center top;
     background-repeat: no-repeat;
     
-    /* Altura flexible: 350px en PC, pero se ajusta en otros dispositivos */
-    height: 350px;               
+    /* Calculamos la altura basada en el ancho para mantener la proporción */
+    /* Si tu imagen es muy ancha, 25vw-30vw es ideal */
+    height: 28vw;                
     width: 100%;
     margin: 0;
     
-    /* Eliminamos el color de fondo naranja fijo para que no choque con la imagen */
-    background-color: transparent; 
-}
-
-/* Ajuste para celulares: el banner se hace más pequeño para no ocupar toda la pantalla */
-@media (max-width: 600px) {
-    header {
-        height: 180px; /* Altura ideal para móviles */
-    }
+    /* El fondo naranja detrás de la imagen para que no queden huecos blancos */
+    background-color: #ff7a00; 
 }
     
 /* 3. Navegación */
@@ -461,16 +455,16 @@ button:hover {
 
 /* --- 8. DISEÑO PARA MÓVILES (Ajustes de pantalla) --- */
 @media (max-width: 600px) {
-    html, body {
-        overflow-x: hidden;
-        width: 100%;
-        position: relative;
-    }
-
     header {
-        height: 150px; 
+        height: 28vw; /* Mantiene la misma proporción que en PC */
+        background-position: center center;
     }
-} /* <--- ESTA LLAVE FALTABA AQUÍ PARA CERRAR EL MODO MÓVIL */
+    
+    /* Ajuste extra para que el título no suba demasiado */
+    .titulo-centrado {
+        padding-top: 10px;
+    }
+}
 
 /* --- TÍTULO PRINCIPAL (Fuera del media query para que se vea en PC) --- */
 .titulo-centrado {
