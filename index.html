@@ -280,11 +280,11 @@ button:hover {
 
 .footer-content {
     width: 100%;
-    max-width: 1100px; /* 🔥 aquí sí centramos */
+    max-width: 1100px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center; /* Cambia flex-start por center */
     padding: 0 20px;
 }
 .footer-section:first-child {
@@ -309,9 +309,10 @@ button:hover {
 }
 
 .footer-logo img {
-    max-width: 250px; /* Cambiado de 160px a 250px */
-    height: auto;     /* Asegura que mantenga la proporción */
-    margin-bottom: 15px;
+    max-width: 250px;
+    height: auto;
+    margin-bottom: 0; /* Cambiado de 10px o 15px a 0 */
+    display: block;   /* Ayuda a quitar espacios fantasma */
 }
 
 .footer-section p, .footer-section a {
