@@ -703,53 +703,74 @@ iframe {
     </div>
 
     <style>
+
+    <style>
         .contenedor-wiki-google {
-            max-width: 850px;
-            margin: 0 auto;
+            max-width: 800px; /* Un poco más angosto ayuda a que se vea mejor centrado */
+            margin: 0 auto !important; /* Centra el bloque en la página */
             padding: 20px;
             background-color: var(--bg-tarjetas);
             border-radius: 15px;
-            min-height: 200px;
+            min-height: 150px;
+            display: block;
         }
 
-        /* Cambiar el color del borde y el botón de Google */
+        /* Forzar centrado de los componentes internos de Google */
         .gsc-control-cse {
             background-color: transparent !important;
             border: none !important;
-            font-family: Arial, sans-serif !important;
+            font-family: inherit !important;
+            margin: 0 auto !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+
+        /* Centrar la caja de entrada y el botón */
+        .gsc-search-box {
+            margin-bottom: 0 !important;
+            width: 100% !important;
         }
         
         .gsc-input-box {
             border: 2px solid var(--acento-naranja) !important;
-            border-radius: 20px !important;
+            border-radius: 25px !important; /* Más redondeado se ve más moderno */
             background: var(--bg-principal) !important;
+            height: 40px !important;
         }
 
+        /* Ajuste del botón de búsqueda */
         .gsc-search-button-v2 {
             background-color: var(--acento-naranja) !important;
-            border-radius: 20px !important;
-            padding: 10px 15px !important;
+            border-radius: 25px !important;
+            padding: 10px 20px !important;
+            margin-left: 5px !important;
         }
 
-        /* Estilo de los resultados para que no brillen mucho en modo oscuro */
+        /* Estilo de los resultados */
         .gs-title, .gs-title b {
             color: var(--acento-naranja) !important;
             text-decoration: none !important;
+            text-align: left; /* Los resultados siempre a la izquierda para leer bien */
         }
 
         .gs-snippet {
             color: var(--texto-principal) !important;
+            text-align: left;
         }
 
         .gsc-webResult {
-            border-bottom: 1px solid rgba(128,128,128,0.2) !important;
-            padding: 10px 0 !important;
+            border-bottom: 1px solid rgba(128,128,128,0.1) !important;
+            padding: 15px 0 !important;
         }
         
-        /* Quitar el logo de Google si estorba el diseño (opcional) */
         .gcsc-branding { display: none !important; }
+
+        /* Ajuste para que la X de borrar texto no mueva todo */
+        .gsst_a {
+            padding-top: 0 !important;
+            vertical-align: middle !important;
+        }
     </style>
-</section>
     
 <section id="eventos" style="display:none;">
     <p style="max-width: 600px; margin: 0 auto 30px auto; line-height: 1.6; color: var(--texto-principal);">
