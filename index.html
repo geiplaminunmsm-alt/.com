@@ -692,20 +692,23 @@ iframe {
 </section>
 
 <section id="software" style="display:none;">
-    <h2 style="color: var(--acento-naranja);">📙 WikiMin</h2>
-    <p style="max-width: 700px; margin: 0 auto 30px auto; font-style: italic;">
-        Tu enciclopedia rápida de Planeamiento Minero. Conceptos técnicos precisos a un clic.
-    </p>
+    <h2 style="color: var(--acento-naranja);">📙 WikiMin Inteligente</h2>
+    <p>Busca términos en nuestra base local o explora fuentes globales de minería.</p>
 
     <div style="text-align: center; margin-bottom: 30px;">
-        <input type="text" id="buscador-wiki-exclusivo" onkeyup="ejecutarFiltroWiki()" placeholder="🔍 Explorar WikiMin..." 
+        <input type="text" id="buscador-wiki-exclusivo" onkeyup="ejecutarFiltroWiki()" placeholder="🔍 Ej: Lerch-Grossman, VAN, Capex..." 
         style="padding: 12px; width: 80%; max-width: 400px; border-radius: 25px; border: 2px solid var(--acento-naranja); outline: none; background: var(--bg-tarjetas); color: var(--texto-principal);">
+    </div>
+
+    <div id="wiki-no-results" style="display:none; margin-top: 20px;">
+        <p>No encontramos ese término en la base local...</p>
+        <button id="btn-google-scholar" style="background: #4285F4;">🔍 Buscar en Google Académico</button>
     </div>
 
     <div id="contenedor-wiki-real">
         <div class="card card-wiki-geiplamin">
-            <h3 style="color: var(--acento-naranja);">Ley de Corte (Cut-off Grade)</h3>
-            <p>Es la ley mínima requerida para que un bloque sea económicamente viable para ser procesado.</p>
+            <h3 style="color: var(--acento-naranja);">Ley de Corte</h3>
+            <p>Mínimo grado de pureza para ser económico.</p>
         </div>
         </div>
 </section>
@@ -1015,22 +1018,34 @@ function cambiarMes(direccion) {
     generarCalendario(); // Esto redibuja los días con el nuevo mes
 }
 
-// --- NUEVA FUNCIÓN INDEPENDIENTE PARA LA WIKI ---
 function ejecutarFiltroWiki() {
     const input = document.getElementById('buscador-wiki-exclusivo');
     const filtro = input.value.toUpperCase();
     const tarjetasWiki = document.getElementsByClassName('card-wiki-geiplamin');
+    const noResults = document.getElementById('wiki-no-results');
+    const btnGoogle = document.getElementById('btn-google-scholar');
+    
+    let encontrados = 0;
 
     for (let i = 0; i < tarjetasWiki.length; i++) {
-        // Buscamos solo en el título (h3) y el párrafo (p) de la tarjeta de la wiki
         const titulo = tarjetasWiki[i].getElementsByTagName('h3')[0].innerText;
-        const contenido = tarjetasWiki[i].getElementsByTagName('p')[0].innerText;
-        
-        if (titulo.toUpperCase().indexOf(filtro) > -1 || contenido.toUpperCase().indexOf(filtro) > -1) {
-            tarjetasWiki[i].style.display = ""; // Se muestra
+        if (titulo.toUpperCase().indexOf(filtro) > -1) {
+            tarjetasWiki[i].style.display = "";
+            encontrados++;
         } else {
-            tarjetasWiki[i].style.display = "none"; // Se oculta
+            tarjetasWiki[i].style.display = "none";
         }
+    }
+
+    // Si no hay resultados locales y hay texto en el buscador
+    if (encontrados === 0 && filtro.length > 0) {
+        noResults.style.display = "block";
+        // Configuramos el botón para buscar en Google Académico limitando a minería
+        btnGoogle.onclick = function() {
+            window.open(`https://scholar.google.com/scholar?q=mining+planning+${input.value}`, '_blank');
+        };
+    } else {
+        noResults.style.display = "none";
     }
 }
 
