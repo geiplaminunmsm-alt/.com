@@ -261,110 +261,7 @@ button:hover {
     /* Cambiamos el color fijo #eee por algo más sutil */
     border-bottom: 1px solid rgba(128, 128, 128, 0.2); 
 }
-
-// --- 1. CONFIGURACIÓN INICIAL ---
-let mesActual = 3; // Abril (0=Enero)
-let añoActual = 2026;
-
-const eventos = {
-    "2026-4-5": "📌 PUBLICACIÓN DIRECTIVA",
-    "2026-4-10": "🚀 CONVOCATORIA",
-    "2026-4-13": "🎙️ TALLER ING. JOSÉ PALACIOS",
-    "2026-4-20": "🚫 CIERRE CONVOCATORIA"
-};
-
-// --- 2. LÓGICA DEL CONTADOR ---
-function actualizarContador() {
-    const fechaCierre = new Date("April 20, 2026 23:59:59").getTime();
-    const ahora = new Date().getTime();
-    const diferencia = fechaCierre - ahora;
-    const display = document.getElementById("contador-texto");
-
-    if (!display) return;
-
-    if (diferencia < 0) {
-        display.innerHTML = "¡CONVOCATORIA CERRADA!";
-    } else {
-        const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-        const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-
-        // Inyectamos spans para que tu CSS pinte los números de naranja
-        display.innerHTML = `<span>${dias}</span>d <span>${horas}</span>h <span>${minutos}</span>m`;
-    }
-}
-
-// --- 3. LÓGICA DEL CALENDARIO ---
-function generarCalendario() {
-    const grid = document.getElementById("calendar-grid");
-    const titulo = document.getElementById("mes-titulo");
-    if (!grid || !titulo) return;
-
-    const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-    titulo.innerText = meses[mesActual] + " " + añoActual;
-    grid.innerHTML = "";
-
-    const primerDia = new Date(añoActual, mesActual, 1).getDay();
-    const diasMes = new Date(añoActual, mesActual + 1, 0).getDate();
-    let offset = (primerDia === 0) ? 6 : primerDia - 1;
-
-    for (let i = 0; i < offset; i++) grid.innerHTML += `<div class="day empty"></div>`;
-
-    for (let dia = 1; dia <= diasMes; dia++) {
-        let fecha = `${añoActual}-${mesActual+1}-${dia}`;
-        let evento = eventos[fecha] || "";
-        let hoy = new Date();
-        let esHoy = (dia === hoy.getDate() && mesActual === hoy.getMonth() && añoActual === hoy.getFullYear()) ? "hoy" : "";
-        let claseEvento = evento ? "evento" : "";
-
-        grid.innerHTML += `
-            <div class="day ${esHoy} ${claseEvento}">
-                <strong>${dia}</strong>
-                ${evento ? `<span class="evento-texto">${evento}</span>` : ""}
-            </div>
-        `;
-    }
-}
-
-function cambiarMes(dir) {
-    mesActual += dir;
-    if (mesActual < 0) { mesActual = 11; añoActual--; }
-    else if (mesActual > 11) { mesActual = 0; añoActual++; }
-    generarCalendario();
-}
-
-// --- 4. FUNCIÓN MODO OSCURO (Botón Flotante) ---
-function toggleTheme() {
-    const body = document.body;
-    const btn = document.getElementById('theme-btn');
-    if (body.getAttribute('data-theme') === 'dark') {
-        body.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'light');
-        if(btn) btn.innerHTML = "☀️";
-    } else {
-        body.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-        if(btn) btn.innerHTML = "🌙";
-    }
-}
-
-// --- 5. INICIALIZACIÓN AL CARGAR ---
-window.onload = () => {
-    // Restaurar tema guardado
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.setAttribute('data-theme', 'dark');
-        if(document.getElementById('theme-btn')) document.getElementById('theme-btn').innerHTML = "🌙";
-    }
-
-    actualizarContador();
-    setInterval(actualizarContador, 60000);
-    generarCalendario();
-    
-    // Si tienes función de carrusel, actívala aquí:
-    // setInterval(ejecutarCarrusel, 3500); 
-};
-
-    
+ 
 /* --- 7. FOOTER REDISEÑADO (ESTILO OSCURO & PREMIUM) --- */
 .footer-container {
     background-color: #000000;
@@ -683,7 +580,10 @@ iframe {
     border: none;
     border-radius: 8px;
 }
-
+[data-theme="dark"] #convocatoria img {
+    filter: brightness(0.8) contrast(1.2);
+    border: 2px solid var(--acento-naranja);
+}
 </style>
 </head>
 <body>
@@ -922,155 +822,50 @@ function filtrarArchivos() {
     const input = document.getElementById('buscador');
     const filtro = input.value.toUpperCase();
     const items = document.getElementsByClassName('item-archivo');
-
     for (let i = 0; i < items.length; i++) {
         const texto = items[i].innerText || items[i].textContent;
         items[i].style.display = (texto.toUpperCase().indexOf(filtro) > -1) ? "" : "none";
     }
 }
 
-// --- 3. MODO OSCURO (MODO MINERO) ---
+// --- 3. MODO OSCURO ---
 function toggleDarkMode() {
     const body = document.body;
     const btn = document.getElementById('theme-btn');
-    
     if (body.getAttribute('data-theme') === 'dark') {
         body.removeAttribute('data-theme');
         localStorage.setItem('theme', 'light');
-        btn.innerHTML = "☀️"; // Pone el sol
+        btn.innerHTML = "☀️";
     } else {
         body.setAttribute('data-theme', 'dark');
         localStorage.setItem('theme', 'dark');
-        btn.innerHTML = "🌙"; // Pone la luna
+        btn.innerHTML = "🌙";
     }
 }
 
-// --- 4. CARRUSEL INFINITO (Lógica corregida) ---
+// --- 4. CARRUSEL ---
 let currentSlide = 0;
-const track = document.getElementById('track');
-
-function ejecutarCarrusel() {
-    if (!track) return;
-    
+function moverCarrusel() {
+    const track = document.getElementById('track');
+    if(!track) return;
     currentSlide++;
-    track.style.transition = "transform 1s ease-in-out";
+    if (currentSlide > 3) currentSlide = 0;
     track.style.transform = `translateX(-${currentSlide * 25}%)`;
-
-    track.addEventListener('transitionend', function alTerminar() {
-        // RESET: Si ya estamos en la última imagen (el clon de la primera)
-        if (currentSlide >= 3) { 
-            track.style.transition = "none";
-            currentSlide = 0;
-            track.style.transform = `translateX(0%)`;
-        }
-        track.removeEventListener('transitionend', alTerminar);
-    });
 }
 
-// --- NUEVA FUNCIÓN: LÓGICA DEL CONTADOR ---
-function actualizarContador() {
-    // Fecha objetivo: 20 de abril de 2026
-    const fechaCierre = new Date("April 20, 2026 23:59:59").getTime();
-    const ahora = new Date().getTime();
-    const diferencia = fechaCierre - ahora;
-
-    const display = document.getElementById("contador-texto");
-    if (!display) return;
-
-    if (diferencia < 0) {
-        display.innerHTML = "¡CONVOCATORIA CERRADA!";
-        display.style.color = "#ff4444";
-    } else {
-        const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-        const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        
-        if (dias > 0) {
-            display.innerHTML = `Faltan ${dias} días y ${horas} horas`;
-        } else {
-            display.innerHTML = `¡ÚLTIMAS ${horas} HORAS!`;
-        }
-    }
-}
-// --- 5. INICIALIZACIÓN (Actualizada) ---
-let mesActual = 3; // Abril
-let añoActual = 2026;
-const eventos = {
-    "2026-4-5": "📌 PUBLICACIÓN DIRECTIVA",
-    "2026-4-10": "🚀 CONVOCATORIA",
-    "2026-4-13": "🎙️ TALLER ING. JOSÉ PALACIOS",
-    "2026-4-20": "🚫 CIERRE CONVOCATORIA"
-};
-
-// --- FUNCIÓN DEL CONTADOR ---
-function actualizarContador() {
-    const fechaCierre = new Date("April 20, 2026 23:59:59").getTime();
-    const ahora = new Date().getTime();
-    const diferencia = fechaCierre - ahora;
-    const display = document.getElementById("contador-texto");
-
-    if (!display) return;
-
-    if (diferencia < 0) {
-        display.innerHTML = "¡CONVOCATORIA CERRADA!";
-        display.style.color = "#ff4444";
-    } else {
-        const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-        const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        display.innerHTML = (dias > 0) ? `Faltan ${dias} días y ${horas} horas` : `¡ÚLTIMAS ${horas} HORAS!`;
-    }
-}
-
-// --- FUNCIÓN DEL CALENDARIO ---
-function generarCalendario() {
-    const grid = document.getElementById("calendar-grid");
-    const titulo = document.getElementById("mes-titulo");
-    if (!grid || !titulo) return;
-
-    const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-    titulo.innerText = meses[mesActual] + " " + añoActual;
-    grid.innerHTML = "";
-
-    const primerDia = new Date(añoActual, mesActual, 1).getDay();
-    const diasMes = new Date(añoActual, mesActual + 1, 0).getDate();
-    let offset = (primerDia === 0) ? 6 : primerDia - 1;
-
-    for (let i = 0; i < offset; i++) grid.innerHTML += `<div class="day empty"></div>`;
-
-    for (let dia = 1; dia <= diasMes; dia++) {
-        let fecha = `${añoActual}-${mesActual+1}-${dia}`;
-        let evento = eventos[fecha] || "";
-        let hoy = new Date();
-        let esHoy = (dia === hoy.getDate() && mesActual === hoy.getMonth() && añoActual === hoy.getFullYear()) ? "hoy" : "";
-        let claseEvento = evento ? "evento" : "";
-
-        grid.innerHTML += `
-            <div class="day ${esHoy} ${claseEvento}">
-                <strong>${dia}</strong>
-                ${evento ? `<span class="evento-texto">${evento}</span>` : ""}
-            </div>
-        `;
-    }
-}
-
-function cambiarMes(dir) {
-    mesActual += dir;
-    if (mesActual < 0) { mesActual = 11; añoActual--; }
-    else if (mesActual > 11) { mesActual = 0; añoActual++; }
-    generarCalendario();
-}
-
-// --- INICIALIZACIÓN TOTAL ---
+// --- 5. INICIALIZACIÓN ---
 window.onload = () => {
-    // Modo Oscuro persistente
     if (localStorage.getItem('theme') === 'dark') {
         document.body.setAttribute('data-theme', 'dark');
         document.getElementById('theme-btn').innerHTML = "🌙";
     }
+    generarCalendario();
     actualizarContador();
     setInterval(actualizarContador, 60000);
-    setInterval(ejecutarCarrusel, 3500);
-    generarCalendario();
+    setInterval(moverCarrusel, 3500);
 };
+    
+</script>
 </script>
 </body>
 </html>
