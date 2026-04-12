@@ -41,28 +41,28 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease; /* Suaviza el cambio */
 }
 
-/* 2. Header (Imagen principal) */
+/* 2. Header (Imagen principal corregida) */
 header {
     background-image: url('GEIPLAMIN.png'); 
-    background-size: contain;    
+    /* 'cover' estira la imagen para que nunca queden huecos negros a los lados */
+    background-size: cover;    
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #ff7a00; /* Rellena los costados con naranja */
+    
+    /* Altura flexible: 350px en PC, pero se ajusta en otros dispositivos */
     height: 350px;               
     width: 100%;
     margin: 0;
+    
+    /* Eliminamos el color de fondo naranja fijo para que no choque con la imagen */
+    background-color: transparent; 
 }
 
-header h1, header p {
-    display: none;
-}
-
-.titulo-centrado {
-    text-align: center;
-    color: #ff7a00;
-    font-size: 28px;
-    font-weight: bold;
-    margin-top: 30px;
+/* Ajuste para celulares: el banner se hace más pequeño para no ocupar toda la pantalla */
+@media (max-width: 600px) {
+    header {
+        height: 180px; /* Altura ideal para móviles */
+    }
 }
     
 /* 3. Navegación */
@@ -589,16 +589,17 @@ iframe {
     ☀️
 </button>
     
-<header></header> 
-<nav>
-    <a href="javascript:void(0)" onclick="volverInicio()">Inicio</a>
-    <a href="javascript:void(0)" onclick="mostrarSeccion('quienes-somos')">Nosotros</a>
-    <a href="javascript:void(0)" onclick="mostrarMaterial()">Material</a>
-    <a href="javascript:void(0)" onclick="mostrarSeccion('grupos-inv')">Grupos</a>
-    <a href="javascript:void(0)" onclick="mostrarSeccion('convocatoria')">Convocatoria</a>
-    <a href="javascript:void(0)" onclick="mostrarSeccion('software')">WikiMin</a>
-    <a href="javascript:void(0)" onclick="mostrarSeccion('eventos')">Eventos</a>
-</nav>
+<header>
+    </header> 
+    <nav>
+        <a href="javascript:void(0)" onclick="volverInicio()">Inicio</a>
+        <a href="javascript:void(0)" onclick="mostrarSeccion('quienes-somos')">Nosotros</a>
+        <a href="javascript:void(0)" onclick="mostrarMaterial()">Material</a>
+        <a href="javascript:void(0)" onclick="mostrarSeccion('grupos-inv')">Grupos</a>
+        <a href="javascript:void(0)" onclick="mostrarSeccion('convocatoria')">Convocatoria</a>
+        <a href="javascript:void(0)" onclick="mostrarSeccion('software')">WikiMin</a>
+        <a href="javascript:void(0)" onclick="mostrarSeccion('eventos')">Eventos</a>
+    </nav>
 
 <div class="titulo-centrado">
     Repositorio de Planeamiento Minero UNMSM
