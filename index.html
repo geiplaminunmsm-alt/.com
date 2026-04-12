@@ -78,11 +78,45 @@ nav {
     justify-content: center;
 }
 
+/* Links de la navegación con respuesta visual inmediata */
 nav a {
     color: #ffb066;
     margin: 15px;
     text-decoration: none;
     font-weight: bold;
+    display: inline-block; 
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer; 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+    position: relative;
+}
+
+nav a:hover {
+    color: #ffffff;
+    background: rgba(255, 122, 0, 0.2); 
+    transform: translateY(-3px); 
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: #ff7a00;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+nav a:hover::after {
+    width: 80%; 
+}
+
+/* El efecto de clic que mencionamos antes */
+nav a:active {
+    transform: translateY(0px) scale(0.95);
 }
 
 /* 4. Secciones y Tarjetas */
