@@ -691,86 +691,49 @@ iframe {
     </div>
 </section>
 
-<section id="software" style="display:none;">
-    <h2 style="color: var(--acento-naranja);">📙 WikiMin: Buscador Inteligente</h2>
-    <p style="max-width: 700px; margin: 0 auto 30px auto;">
+<section id="software" style="display:none; text-align: center; padding: 50px 20px;">
+    
+    <h2 style="color: var(--acento-naranja); margin-bottom: 10px;">📙 WikiMin: Buscador Inteligente</h2>
+    
+    <p style="max-width: 600px; margin: 0 auto 30px auto; line-height: 1.6;">
         Explora la base de datos global de GEIPLAMIN: Tesis UNMSM, manuales SME, reportes INGEMMET y más.
     </p>
 
-    <div class="contenedor-wiki-google">
+    <div style="max-width: 700px; margin: 0 auto; background: var(--bg-tarjetas); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+        
         <script async src="https://cse.google.com/cse.js?cx=c490b3bfeadb74409"></script>
         <div class="gcse-search"></div>
+
+        <style>
+            /* Reset total para el buscador de Google */
+            .gsc-control-cse {
+                background-color: transparent !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .gsc-search-box-tools .gsc-search-box .gsc-input {
+                padding-right: 0 !important;
+            }
+            .gsc-input-box {
+                border: 2px solid var(--acento-naranja) !important;
+                border-radius: 25px !important;
+                background-color: white !important; /* Blanco para que se vea la lupa y el texto */
+                overflow: hidden;
+            }
+            .gsc-search-button-v2 {
+                background-color: var(--acento-naranja) !important;
+                border-radius: 0 25px 25px 0 !important;
+                border: none !important;
+                margin-top: 0 !important;
+            }
+            /* Esto centra los resultados de búsqueda */
+            .gsc-results-wrapper-overlay, .gsc-results-wrapper-visible {
+                text-align: left !important;
+            }
+        </style>
     </div>
-
-    <style>
-
-    <style>
-        .contenedor-wiki-google {
-            max-width: 800px; /* Un poco más angosto ayuda a que se vea mejor centrado */
-            margin: 0 auto !important; /* Centra el bloque en la página */
-            padding: 20px;
-            background-color: var(--bg-tarjetas);
-            border-radius: 15px;
-            min-height: 150px;
-            display: block;
-        }
-
-        /* Forzar centrado de los componentes internos de Google */
-        .gsc-control-cse {
-            background-color: transparent !important;
-            border: none !important;
-            font-family: inherit !important;
-            margin: 0 auto !important;
-            padding: 0 !important;
-            width: 100% !important;
-        }
-
-        /* Centrar la caja de entrada y el botón */
-        .gsc-search-box {
-            margin-bottom: 0 !important;
-            width: 100% !important;
-        }
-        
-        .gsc-input-box {
-            border: 2px solid var(--acento-naranja) !important;
-            border-radius: 25px !important; /* Más redondeado se ve más moderno */
-            background: var(--bg-principal) !important;
-            height: 40px !important;
-        }
-
-        /* Ajuste del botón de búsqueda */
-        .gsc-search-button-v2 {
-            background-color: var(--acento-naranja) !important;
-            border-radius: 25px !important;
-            padding: 10px 20px !important;
-            margin-left: 5px !important;
-        }
-
-        /* Estilo de los resultados */
-        .gs-title, .gs-title b {
-            color: var(--acento-naranja) !important;
-            text-decoration: none !important;
-            text-align: left; /* Los resultados siempre a la izquierda para leer bien */
-        }
-
-        .gs-snippet {
-            color: var(--texto-principal) !important;
-            text-align: left;
-        }
-
-        .gsc-webResult {
-            border-bottom: 1px solid rgba(128,128,128,0.1) !important;
-            padding: 15px 0 !important;
-        }
-        
-        .gcsc-branding { display: none !important; }
-
-        /* Ajuste para que la X de borrar texto no mueva todo */
-        .gsst_a {
-            padding-top: 0 !important;
-            vertical-align: middle !important;
-        }
-    </style>
+</section>
     
 <section id="eventos" style="display:none;">
     <p style="max-width: 600px; margin: 0 auto 30px auto; line-height: 1.6; color: var(--texto-principal);">
