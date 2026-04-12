@@ -36,7 +36,7 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 2. Header Corregido */
+/* 2. Header */
 header {
     width: 100%;
     min-height: 150px;
@@ -76,6 +76,8 @@ nav a {
     font-weight: bold;
     margin-top: 40px;
     margin-bottom: 10px;
+    width: 100%;
+    clear: both;
 }
     
 /* 4. Secciones y Tarjetas */
@@ -111,7 +113,9 @@ button {
     font-weight: bold;
 }
 
-/* 5. CALENDARIO: DISEÑO PRO */
+button:hover { background: #e56700; }
+
+/* --- 5. CALENDARIO: DISEÑO PRO INTEGRADO --- */
 .calendar {
     max-width: 900px;
     margin: 30px auto;
@@ -125,10 +129,11 @@ button {
 
 .calendar-header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     padding: 20px;
     background: #000;
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 
@@ -157,27 +162,44 @@ button {
     background: var(--bg-tarjetas);
     color: var(--texto-principal);
     border-radius: 10px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    text-align: left;
+    cursor: pointer;
 }
 
-/* 🌙 FINES DE SEMANA (Crema) */
-.day.weekend { background-color: #fff5e6 !important; color: #333 !important; }
+/* 🌙 FINES DE SEMANA (CREMA / MELÓN) */
+.day.weekend {
+    background-color: #fff5e6 !important; 
+    color: #333 !important;
+}
 
-/* 📍 HOY */
-.day.hoy { border: 2px solid #ff7a00 !important; box-shadow: 0 0 15px rgba(255, 122, 0, 0.4); }
+/* 📍 INDICADOR DÍA ACTUAL */
+.day.hoy {
+    border: 2px solid #ff7a00 !important;
+    box-shadow: 0 0 15px rgba(255, 122, 0, 0.4);
+    transform: scale(1.02);
+}
 
-/* 🔥 EVENTO */
+.day:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 8px 20px var(--sombra);
+    z-index: 5;
+    border-color: #ff7a00;
+}
+
+/* DÍAS CON EVENTO (DEGRADADO) */
 .day.evento {
     background: linear-gradient(135deg, #ff7a00, #ffb347) !important;
     color: white !important;
     font-weight: bold;
+    box-shadow: 0 0 15px rgba(255, 122, 0, 0.4);
+    border: none;
 }
 
 .evento-texto {
     display: block;
     font-size: 10px;
-    margin-top: 5px;
+    margin-top: 8px;
     padding: 4px;
     background: rgba(0,0,0,0.15);
     border-radius: 5px;
@@ -185,73 +207,92 @@ button {
 
 [data-theme="dark"] .day.weekend { background-color: #1a1612 !important; color: #ff9d47 !important; }
 
-/* 6. Repositorio */
+/* 6. Repositorio de Archivos */
 #recursos { display: none; }
 .lista-repo {
     max-width: 750px;
     margin: 0 auto;
-    background-color: var(--bg-tarjetas);
+    text-align: left;
+    background-color: var(--bg-tarjetas); 
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px var(--sombra);
+    box-shadow: 0 4px 15px var(--sombra); 
 }
 .item-archivo {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2); 
 }
 
-/* 7. Footer */
+/* 7. Footer Rediseñado */
 .footer-container {
     background-color: #000000;
-    color: #e0e0e0;
-    padding: 40px 0 0 0;
+    color: #e0e0e0; 
+    padding: 80px 0 0 0;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border-top: 4px solid #ff7a00;
 }
 .footer-content {
+    width: 100%;
+    max-width: 1100px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    padding-bottom: 40px;
+    justify-content: space-between;
+    padding: 0 20px 60px 20px;
 }
-.footer-logo img { max-width: 180px; }
-.social-icons svg { width: 24px; height: 24px; fill: #666; margin-right: 15px; }
-
-/* 9. Botón Modo */
-.dark-mode-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1001;
-    background: var(--acento-naranja);
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 24px;
+.footer-brand { flex: 1.5; min-width: 280px; display: flex; flex-direction: column; gap: 20px; }
+.footer-logo img { max-width: 240px; height: auto; filter: brightness(1.1); }
+.footer-section { flex: 1; min-width: 200px; margin-bottom: 30px; }
+.footer-section h3 {
+    color: #ffffff; 
+    font-size: 15px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 2px solid #333;
+    display: inline-block;
 }
+.footer-section a, .footer-section p {
+    color: #aaaaaa !important;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 15px;
+}
+.social-icons { display: flex; gap: 20px; }
+.social-icons svg { width: 28px; height: 28px; fill: #666; transition: 0.3s; }
+.social-icons a:hover svg { fill: #ff7a00; }
+.footer-bottom { background: #080808; padding: 25px; width: 100%; text-align: center; color: #444; font-size: 11px; }
 
-/* Carrusel simple */
-.carousel-container { max-width: 800px; margin: 30px auto; overflow: hidden; border-radius: 12px; border: 3px solid #000; }
-.carousel-track { display: flex; width: 400%; transition: transform 0.5s ease; }
-.carousel-slide { width: 25%; }
-.carousel-slide img { width: 100%; height: 350px; object-fit: cover; }
+/* 9. Carrusel y Cuadros Nosotros */
+.carousel-container { max-width: 800px; margin: 30px auto; overflow: hidden; border-radius: 12px; position: relative; border: 3px solid #000; }
+.carousel-track { display: flex; width: 400%; transition: transform 1s ease-in-out; }
+.carousel-slide { width: 25%; background-color: #000; }
+.carousel-slide img { width: 100%; height: 400px; object-fit: cover; }
 
 .cuadro-nosotros {
-    flex: 1; min-width: 250px; background: var(--bg-tarjetas); padding: 20px; border-radius: 10px; border-bottom: 5px solid #ff7a00;
+    flex: 1; min-width: 280px; max-width: 450px; background-color: var(--bg-tarjetas) !important;
+    color: var(--texto-principal); padding: 30px; border-bottom: 6px solid var(--acento-naranja) !important;
+    border-radius: 12px; box-shadow: 0 4px 15px var(--sombra); text-align: center;
+}
+
+.dark-mode-toggle {
+    position: fixed; bottom: 20px; right: 20px; z-index: 1001;
+    background: var(--acento-naranja); color: white; border: none;
+    padding: 15px; border-radius: 50%; cursor: pointer; font-size: 24px;
 }
 </style>
 </head>
 <body>
 
 <button id="theme-btn" class="dark-mode-toggle" onclick="toggleDarkMode()">☀️</button>
-
+    
 <header></header> 
-
 <nav>
     <a href="javascript:void(0)" onclick="volverInicio()">Inicio</a>
     <a href="javascript:void(0)" onclick="mostrarSeccion('quienes-somos')">Nosotros</a>
@@ -263,50 +304,61 @@ button {
 <div class="titulo-centrado">Repositorio de Planeamiento Minero UNMSM</div>
 
 <section id="inicio">
+    <p>Bienvenidos al repositorio académico enfocado en planeamiento minero para estudiantes de Ingeniería de Minas.</p>
     <div class="card">
         <h3>📚 Material académico</h3>
         <button onclick="mostrarMaterial()">Explorar</button>
     </div>
     <div class="card">
         <h3>🎓 Eventos y talleres</h3>
-        <button onclick="mostrarSeccion('eventos')">Ver calendario</button>
+        <button onclick="mostrarSeccion('eventos')">Ir al calendario</button>
     </div>
-</section>
+    <div class="card">
+        <h3>🎥 Charlas</h3>
+        <button onclick="window.open('https://drive.google.com/drive/folders/15pMKip8ih5PICY_FSBlsQsqOQPW4va9Z', '_blank')">Ver Charlas</button>
+    </div>
+</section> 
 
 <section id="quienes-somos" style="display:none;">
-    <h2>👥 Nosotros</h2>
+    <h2>👥 ¿Quiénes Somos?</h2>
     <div class="carousel-container">
         <div class="carousel-track" id="track">
-            <div class="carousel-slide"><img src="NOSOTROS.png"></div>
-            <div class="carousel-slide"><img src="NOSOTROS1.png"></div>
-            <div class="carousel-slide"><img src="NOSOTROS2.png"></div>
-            <div class="carousel-slide"><img src="NOSOTROS.png"></div>
+            <div class="carousel-slide"><img src="NOSOTROS.png" alt="1"></div>
+            <div class="carousel-slide"><img src="NOSOTROS1.png" alt="2"></div>
+            <div class="carousel-slide"><img src="NOSOTROS2.png" alt="3"></div>
+            <div class="carousel-slide"><img src="NOSOTROS.png" alt="1-clon"></div>
         </div>
     </div>
-    <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 30px;">
         <div class="cuadro-nosotros">
             <h3>Misión</h3>
-            <p>Formación técnica especializada en Planeamiento Minero.</p>
+            <p>Formación técnica especializada y excelencia en el Planeamiento Minero.</p>
         </div>
         <div class="cuadro-nosotros">
             <h3>Visión</h3>
-            <p>Ser líderes e ingenieros referentes en la industria.</p>
+            <p>Ser reconocidos como un grupo de estudio referente a nivel nacional.</p>
         </div>
     </div>
 </section>
 
 <section id="convocatoria" style="display:none;">
-    <h2>📢 Convocatoria 2026</h2>
-    <div id="countdown-box" style="background: var(--bg-tarjetas); border: 2px solid var(--acento-naranja); padding: 20px; border-radius: 15px; max-width: 400px; margin: 0 auto;">
-        <p>⏳ Tiempo restante:</p>
-        <div id="contador-texto" style="font-size: 24px; color: var(--acento-naranja); font-weight: bold;">Calculando...</div>
+    <h2>📢 Convocatoria GEIPLAMIN 2026</h2>
+    <div id="countdown-box" style="background: var(--bg-tarjetas); border: 2px solid var(--acento-naranja); padding: 20px; border-radius: 15px; max-width: 400px; margin: 0 auto 30px auto; box-shadow: 0 4px 15px var(--sombra);">
+        <p style="margin: 0; font-weight: bold; font-size: 18px;">⏳ Tiempo restante:</p>
+        <div id="contador-texto" style="font-size: 24px; color: var(--acento-naranja); font-weight: bold; margin-top: 10px;">Calculando...</div>
+        <p style="font-size: 12px; margin-top: 5px; color: #888;">Cierre: 20 de Abril, 2026</p>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+        <img src="1.jpeg" style="width: 100%; max-width: 450px; border-radius: 10px;">
+        <img src="2.jpeg" style="width: 100%; max-width: 450px; border-radius: 10px;">
     </div>
 </section>
 
 <section id="eventos" style="display:none;">
-    <h2>📅 Calendario de Actividades</h2>
     <div class="calendar">
-        <div class="calendar-header">Abril 2026</div>
+        <div class="calendar-header">
+            <span>Abril 2026</span>
+        </div>
         <div class="days">
             <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
         </div>
@@ -317,21 +369,29 @@ button {
 <section id="recursos">
     <h2>Material Bibliográfico</h2>
     <div class="lista-repo">
-        <div class="item-archivo">📙 VENTILACIÓN MINERA <button>Ver</button></div>
-        <div class="item-archivo">📙 CARTERA DE PROYECTOS <button>Ver</button></div>
-        <div class="item-archivo">📙 Manual Práctico MinePlan N° 1 <button>Ver</button></div>
+        <div class="item-archivo">📙 VENTILACIÓN MINERA <a href="VENTILACIÓN MINERA.pdf" target="_blank"><button>Ver</button></a></div>
+        <div class="item-archivo">📙 Manual Práctico MinePlan N° 1 <a href="Manual.pdf" target="_blank"><button>Ver</button></a></div>
     </div>
-</section>
+</section>  
 
 <footer>
     <div class="footer-container">
         <div class="footer-content">
-            <div class="footer-logo"><img src="LOGO.png"></div>
+            <div class="footer-brand">
+                <div class="footer-logo"><img src="LOGO.png"></div>
+                <p>GEIPLAMIN es un colectivo de la UNMSM dedicado al planeamiento minero.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Explora</h3>
+                <a href="javascript:void(0)" onclick="mostrarSeccion('quienes-somos')">Nosotros</a>
+                <a href="javascript:void(0)" onclick="mostrarSeccion('convocatoria')">Convocatoria</a>
+            </div>
             <div class="footer-section">
                 <h3>Contacto</h3>
                 <p>📧 geiplamin.unmsm.24@gmail.com</p>
                 <div class="social-icons">
-                    <a href="#">FB</a><a href="#">IN</a>
+                    <a href="https://facebook.com" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/></svg></a>
+                    <a href="https://linkedin.com" target="_blank"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5V13.2a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3V10.2H10.2v8.3h2.72v-4.4c0-1.04.88-1.9 1.9-1.9s1.9.86 1.9 1.9v4.4h2.72M6.25 10.2v8.3h2.73v-8.3H6.25M7.62 6a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 7.62 6Z"/></svg></a>
                 </div>
             </div>
         </div>
@@ -340,36 +400,44 @@ button {
 </footer>
 
 <script>
-// 1. NAVEGACIÓN
+// --- 1. NAVEGACIÓN ---
 function ocultarTodo() {
-    ['inicio', 'eventos', 'recursos', 'quienes-somos', 'convocatoria'].forEach(id => {
+    const secciones = ['inicio', 'eventos', 'recursos', 'quienes-somos', 'convocatoria'];
+    secciones.forEach(id => {
         const el = document.getElementById(id);
         if(el) el.style.display = 'none';
     });
 }
-function mostrarSeccion(id) { ocultarTodo(); document.getElementById(id).style.display = 'block'; }
+function mostrarSeccion(id) { ocultarTodo(); document.getElementById(id).style.display = 'block'; window.scrollTo(0,0); }
 function volverInicio() { mostrarSeccion('inicio'); }
 function mostrarMaterial() { mostrarSeccion('recursos'); }
 
-// 2. MODO OSCURO
+// --- 2. MODO OSCURO ---
 function toggleDarkMode() {
     const body = document.body;
-    const isDark = body.getAttribute('data-theme') === 'dark';
-    if(isDark) { body.removeAttribute('data-theme'); } 
-    else { body.setAttribute('data-theme', 'dark'); }
-    document.getElementById('theme-btn').innerHTML = isDark ? "☀️" : "🌙";
+    const btn = document.getElementById('theme-btn');
+    if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        btn.innerHTML = "☀️";
+    } else {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        btn.innerHTML = "🌙";
+    }
 }
 
-// 3. CALENDARIO ABRIL 2026
+// --- 3. CALENDARIO ABRIL 2026 ---
 function generarCalendario() {
     const grid = document.getElementById('calendar-grid');
     if(!grid) return;
     grid.innerHTML = "";
-    
     const inicioMes = 3; // Miércoles
     const diasMes = 30;
     
-    // TUS EVENTOS
+    const hoy = new Date();
+    const diaActual = (hoy.getMonth() === 3 && hoy.getFullYear() === 2026) ? hoy.getDate() : 0;
+
     const eventos = {
         5: "Publicación Directiva",
         10: "Publicación Convocatoria",
@@ -377,50 +445,55 @@ function generarCalendario() {
         20: "Cierre de Convocatoria"
     };
 
-    // Espacios vacíos
     for(let i = 1; i < inicioMes; i++) {
-        grid.innerHTML += `<div class="day" style="opacity:0.2;"></div>`;
+        grid.innerHTML += `<div class="day" style="opacity:0.2; pointer-events:none;"></div>`;
     }
 
-    // Días
     for(let d = 1; d <= diasMes; d++) {
-        const col = (d + inicioMes - 2) % 7;
-        const esFinde = (col === 5 || col === 6) ? "weekend" : "";
-        const esEvento = eventos[d] ? "evento" : "";
-        const esHoy = (d === 12) ? "hoy" : ""; // Simulando que hoy es 12 de abril para que veas el efecto
+        const diaSemana = (d + inicioMes - 2) % 7;
+        const esFinde = (diaSemana === 5 || diaSemana === 6) ? "weekend" : "";
+        const esHoy = (d === diaActual) ? "hoy" : "";
+        const claseEvento = eventos[d] ? "evento" : "";
 
         grid.innerHTML += `
-            <div class="day ${esFinde} ${esEvento} ${esHoy}">
-                <strong>${d}</strong>
+            <div class="day ${esFinde} ${esHoy} ${claseEvento}">
+                <span style="font-weight: bold;">${d}</span>
                 ${eventos[d] ? `<span class="evento-texto">${eventos[d]}</span>` : ""}
             </div>`;
     }
 }
 
-// 4. CONTADOR
+// --- 4. CONTADOR ---
 function actualizarContador() {
     const limite = new Date("April 20, 2026 23:59:59").getTime();
     const ahora = new Date().getTime();
     const diff = limite - ahora;
     const texto = document.getElementById('contador-texto');
     if(!texto) return;
-    if(diff < 0) { texto.innerHTML = "CERRADA"; return; }
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    texto.innerHTML = `${d}d ${h}h`;
+    if (diff < 0) { texto.innerHTML = "CERRADA"; return; }
+    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    texto.innerHTML = `${dias}d ${horas}h`;
 }
 
-// 5. CARRUSEL
-let slide = 0;
-function mover() {
-    const t = document.getElementById('track');
-    if(t) { slide = (slide + 1) % 4; t.style.transform = `translateX(-${slide * 25}%)`; }
+// --- 5. CARRUSEL ---
+let currentSlide = 0;
+function moverCarrusel() {
+    const track = document.getElementById('track');
+    if(!track) return;
+    currentSlide = (currentSlide + 1) % 4;
+    track.style.transform = `translateX(-${currentSlide * 25}%)`;
 }
 
 window.onload = () => {
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+        document.getElementById('theme-btn').innerHTML = "🌙";
+    }
     generarCalendario();
     actualizarContador();
-    setInterval(mover, 3000);
+    setInterval(moverCarrusel, 4000);
+    setInterval(actualizarContador, 60000);
 };
 </script>
 </body>
