@@ -978,9 +978,9 @@ const eventos = {
 function generarCalendario() {
     const grid = document.getElementById("calendar-grid");
     const titulo = document.getElementById("mes-titulo");
+    if (!grid || !titulo) return;
 
     const meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
-
     titulo.innerText = meses[mesActual] + " " + añoActual;
 
     grid.innerHTML = "";
@@ -988,16 +988,16 @@ function generarCalendario() {
     const primerDia = new Date(añoActual, mesActual, 1).getDay();
     const diasMes = new Date(añoActual, mesActual + 1, 0).getDate();
 
+    // Ajuste para que el lunes sea el primer día (0=Dom, 1=Lun...)
     let offset = (primerDia === 0) ? 6 : primerDia - 1;
 
-    // Espacios vacíos
+    // Espacios vacíos al inicio del mes
     for (let i = 0; i < offset; i++) {
-        grid.innerHTML += `<div class="day"></div>`;
+        grid.innerHTML += `<div class="day empty"></div>`;
     }
 
-    // 🔥 GENERAR DÍAS
+    // Generar los días
     for (let dia = 1; dia <= diasMes; dia++) {
-
         let fecha = `${añoActual}-${mesActual+1}-${dia}`;
         let evento = eventos[fecha] || "";
         let tieneEvento = evento !== "";
@@ -1005,17 +1005,10 @@ function generarCalendario() {
 
         let fechaObj = new Date(añoActual, mesActual, dia);
         let diaSemana = fechaObj.getDay();
-
         let claseExtra = (diaSemana === 0 || diaSemana === 6) ? "weekend" : "";
 
-        // 🔥 DETECTAR HOY
         let hoy = new Date();
-        let esHoy = (
-            dia === hoy.getDate() &&
-            mesActual === hoy.getMonth() &&
-            añoActual === hoy.getFullYear()
-        );
-
+        let esHoy = (dia === hoy.getDate() && mesActual === hoy.getMonth() && añoActual === hoy.getFullYear());
         let claseHoy = esHoy ? "hoy" : "";
 
         grid.innerHTML += `
@@ -1027,6 +1020,24 @@ function generarCalendario() {
     }
 }
 
+// ESTA ES LA FUNCIÓN QUE TE HACÍA FALTA PARA QUE LAS FLECHAS FUNCIONEN
+function cambiarMes(direccion) {
+    mesActual += direccion;
+    if (mesActual < 0) {
+        mesActual = 11;
+        añoActual--;
+    } else if (mesActual > 11) {
+        mesActual = 0;
+        añoActual++;
+    }
+    generarCalendario();
+}
+
+// Aseguramos que se dibuje al cargar la página
+window.onload = () => {
+    // Si tienes otras funciones de inicialización (carrusel, modo oscuro), ponlas aquí
+    generarCalendario();
+};
 </script>
 </body>
 </html>
