@@ -6,27 +6,19 @@
 <title>GEIPLAMIN - Repositorio Minero</title>
 
 <style>
-/* 1. Estilo general y Variables de Color (NUEVO) */
+/* 1. Reset Global - ESTO VA PRIMERO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 :root {
-    /* Colores Modo Claro (Normal) */
     --bg-principal: #ffffff;
     --bg-tarjetas: #ffffff;
     --texto-principal: #333333;
-    --acento-naranja: #ff7a00; /* Naranja estándar */
+    --acento-naranja: #ff7a00;
     --sombra: rgba(0,0,0,0.1);
-}
-
-[data-theme="dark"] {
-    /* Colores Modo Minero (Oscuro) */
-    --bg-principal: #121212; /* Gris oscuro profundo */
-    --bg-tarjetas: #1e1e1e; /* Gris ligeramente más claro para tarjetas */
-    --texto-principal: #e0e0e0; /* Gris muy claro, no blanco puro */
-    --acento-naranja: #ff9d47; /* Naranja Neón brillante */
-    --sombra: rgba(255, 122, 0, 0.2); /* Sombra naranja suave */
-}
-
-* {
-    box-sizing: border-box;
 }
 
 body {
@@ -35,39 +27,32 @@ body {
     width: 100%;
     overflow-x: hidden;
     font-family: Arial, sans-serif;
-    /* APLICAMOS LAS VARIABLES (NUEVO) */
     background-color: var(--bg-principal);
     color: var(--texto-principal);
-    transition: background-color 0.3s ease, color 0.3s ease; /* Suaviza el cambio */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 2. Header (Corregido: Sin recortes, proporciones reales y sin franjas) */
+/* 2. Header - Ajustado para que NO deje espacio naranja ni blanco */
 header {
     background-image: url('GEIPLAMIN.png'); 
-    background-size: contain;    /* Asegura que la imagen se vea completa siempre */
+    background-size: contain;    
     background-position: center top;
     background-repeat: no-repeat;
-    
     width: 100%;
-    /* IMPORTANTE: aspect-ratio: ANCHO / ALTO. 
-       Si tu imagen es de 1920x538, usa 1920/538.
-       Si no sabes la medida, 3.5 / 1 suele ser el estándar de tu banner.
-    */
-    aspect-ratio: 3.5 / 1; 
-    height: auto; 
     
+    /* Cambia este número: 5 hace el header más delgado, 3 lo hace más alto */
+    aspect-ratio: 5 / 1; 
+    
+    height: auto;
     margin: 0;
     padding: 0;
-    
-    /* Cambiamos a transparente o negro para que la franja naranja desaparezca */
-    background-color: transparent; 
+    background-color: #000; /* Fondo negro por si la imagen es pequeña */
 }
 
 /* 3. Navegación (Ajuste para que suba y se pegue al header) */
 nav {
-    margin-top: 0; /* Elimina cualquier espacio entre el banner y el menú */
-    background: #000000;
-    /* ... resto de tu código de nav ... */
+    margin-top: -1px; /* Esto succiona el nav hacia arriba para pegarlo al banner */
+    /* ... resto de tu código ... */
 }
 
 /* --- 8. DISEÑO PARA MÓVILES (Simplificado) --- */
@@ -492,11 +477,9 @@ button:hover {
 /* --- TÍTULO PRINCIPAL (Fuera del media query para que se vea en PC) --- */
 .titulo-centrado {
     text-align: center !important;
-    padding: 40px 20px;
+    padding: 15px 20px; /* Reducido de 40px a 15px para que suba todo */
     width: 100%;
-    max-width: 1200px;
     margin: 0 auto;
-    display: block;
 }
 
 .titulo-centrado h1 {
@@ -704,6 +687,23 @@ iframe {
         <div class="gcse-search"></div>
 
         <style>
+            /* --- 1. ESTO VA AQUÍ AL PRINCIPIO --- */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            body {
+                background-color: var(--bg-principal); /* Usamos tu variable para que funcione el modo oscuro */
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                overflow-x: hidden;
+                font-family: Arial, sans-serif;
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+            
             /* Reset total para el buscador de Google */
             .gsc-control-cse {
                 background-color: transparent !important;
