@@ -421,7 +421,8 @@ button:hover {
 
 .carousel-track {
     display: flex; 
-    width: 400%;   
+    width: 400%;
+    transform: translateX(0);
     transition: transform 1s ease-in-out; 
 }
 
@@ -930,27 +931,31 @@ function toggleDarkMode() {
 }
 
 // --- 4. CARRUSEL INFINITO (Lógica corregida) ---
+// --- JS CARRUSEL OPTIMIZADO ---
 let currentSlide = 0;
 const track = document.getElementById('track');
+const totalSlides = 4; // 3 originales + 1 clon
 
 function ejecutarCarrusel() {
     if (!track) return;
     
     currentSlide++;
+    
+    // 1. Movemos el carrusel con suavidad
     track.style.transition = "transform 1s ease-in-out";
-    track.style.transform = `translateX(-${currentSlide * 25}%)`;
+    track.style.transform = `translateX(-${currentSlide * (100 / totalSlides)}%)`;
 
-    track.addEventListener('transitionend', function alTerminar() {
-        // RESET: Si ya estamos en la última imagen (el clon de la primera)
-        if (currentSlide >= 3) { 
+    // 2. Esperamos a que termine la animación para hacer el truco de "teletransporte"
+    setTimeout(() => {
+        if (currentSlide >= totalSlides - 1) { 
+            // Quitamos la animación para que el salto al inicio sea invisible
             track.style.transition = "none";
             currentSlide = 0;
             track.style.transform = `translateX(0%)`;
         }
-        track.removeEventListener('transitionend', alTerminar);
-    });
+    }, 1000); // 1000ms es lo mismo que dura tu transición CSS
 }
-
+   
 // --- NUEVA FUNCIÓN: LÓGICA DEL CONTADOR ---
 function actualizarContador() {
     // Fecha objetivo: 20 de abril de 2026
