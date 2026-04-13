@@ -67,66 +67,64 @@ nav {
     }
 }
     
-/* 3. Navegación */
+/* 3. Navegación - Contenedor Negro Total */
 nav {
     background: #000000;
-    padding: 10px;
-    text-align: center;
+    width: 100%;
     position: sticky;
     top: 0;
     z-index: 100;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center; /* Centra el bloque de botones */
+    margin-top: -1px;
 }
 
-/* Links de la navegación con respuesta visual inmediata */
+/* Contenedor interno que limita el ancho de los botones */
+.nav-inner {
+    width: 100%;
+    max-width: 1000px; /* Ajusta este valor si quieres que los botones estén más juntos o separados */
+    display: flex;
+    justify-content: space-evenly; /* Distribuye botones con espacio igual */
+    align-items: center;
+    padding: 5px 0;
+}
+
+/* Links de la navegación */
 nav a {
     color: #ffb066;
-    margin: 15px;
     text-decoration: none;
     font-weight: bold;
-    display: inline-block; 
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer; 
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+    padding: 12px 15px;
+    font-size: 14px; /* Tamaño de letra más elegante */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    white-space: nowrap; /* Evita que el texto se rompa en dos líneas */
 }
 
+/* Hover y Estados (Mantenemos tus efectos) */
 nav a:hover {
     color: #ffffff;
-    background: rgba(255, 122, 0, 0.2); 
-    transform: translateY(-3px); 
+    background: rgba(255, 122, 0, 0.1);
+    transform: translateY(-2px);
 }
 
-nav a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    background-color: #ff7a00;
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-}
-
-nav a:hover::after {
-    width: 80%; 
-}
-
-/* El efecto de clic que mencionamos antes */
-nav a:active {
-    transform: translateY(0px) scale(0.95);
-}
-
-/* Clase que mantiene el botón resaltado */
 nav a.active {
     color: #ffffff !important;
-    background: rgba(255, 122, 0, 0.3);
+    background: rgba(255, 122, 0, 0.2);
     border-bottom: 2px solid #ff7a00;
-    transform: translateY(-2px);
+}
+
+/* --- Ajuste para Celulares --- */
+@media (max-width: 768px) {
+    .nav-inner {
+        flex-wrap: wrap; /* En celular sí permitimos que bajen */
+        justify-content: center;
+        gap: 5px;
+    }
+    nav a {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
 }
     
 /* 4. Secciones y Tarjetas */
@@ -580,6 +578,7 @@ iframe {
 <header>
     </header> 
     <nav>
+    <div class="nav-inner">
         <a href="javascript:void(0)" onclick="volverInicio()">Inicio</a>
         <a href="javascript:void(0)" onclick="mostrarSeccion('quienes-somos')">Nosotros</a>
         <a href="javascript:void(0)" onclick="mostrarMaterial()">Material</a>
@@ -587,7 +586,8 @@ iframe {
         <a href="javascript:void(0)" onclick="mostrarSeccion('convocatoria')">Convocatoria</a>
         <a href="javascript:void(0)" onclick="mostrarSeccion('software')">WikiMin</a>
         <a href="javascript:void(0)" onclick="mostrarSeccion('eventos')">Eventos</a>
-    </nav>
+    </div>
+</nav>
 
 <div class="titulo-centrado">
     <h1>Repositorio de Planeamiento Minero UNMSM</h1>
