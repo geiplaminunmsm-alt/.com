@@ -215,8 +215,14 @@ button:hover {
     transition: all 0.25s ease;
     cursor: pointer;
     position: relative;
+    color: #333333;
 }
 
+/* Solo en modo oscuro el número cambia a blanco/gris claro */
+[data-theme="dark"] .day {
+    color: #e0e0e0;
+}
+    
 /* Hover PRO */
 .day:hover {
     transform: scale(1.05);
